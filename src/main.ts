@@ -1,12 +1,10 @@
 import { Application } from 'pixi.js';
 import { initAssets } from './utils/assets';
 import { navigation } from './utils/navigation';
-// import { GameScreen } from './screens/GameScreen';
-// import { HomeScreen } from './screens/HomeScreen';
-import { LoadScreen } from './screens/LoadScreen';
-import { getUrlParam } from './utils/getUrlParams';
 import { sound } from '@pixi/sound';
 import { Config } from './config';
+import { LoadScreen } from './screens/LoadScreen';
+import { getUrlParam } from './utils/getUrlParams';
 import { HomeScreen } from './screens/HomeScreen';
 import { GameScreen } from './screens/GameScreen';
 

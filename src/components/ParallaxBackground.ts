@@ -2,8 +2,6 @@ import { Container, TilingSprite, Ticker, Texture } from "pixi.js";
 import { centerObjects } from "../utils/align";
 import { Backgrounds, Config } from '../config';
 
-
-
 export default class ParallaxBackground extends Container {
     // name = "Background";
 
@@ -21,7 +19,7 @@ export default class ParallaxBackground extends Container {
 
         this.init();
 
-        centerObjects(this);
+        // centerObjects(this);
     }
 
     init() {
@@ -33,8 +31,8 @@ export default class ParallaxBackground extends Container {
             const scaleFactor = Config.width / texture.height;
             const tilingSprite = new TilingSprite({
                 texture,
-                width: Config.width / scaleFactor,
-                height: texture.height
+                width: Config.width,
+                height: Config.height
             });
 
             tilingSprite.scale.set(scaleFactor);
@@ -72,6 +70,7 @@ export default class ParallaxBackground extends Container {
     }
 
     resize(width: number, height: number) {
+        console.log("= resize", width, height);
         for (const layer of this.tilingSprites) {
             const scaleFactor = height / layer.texture.height;
 

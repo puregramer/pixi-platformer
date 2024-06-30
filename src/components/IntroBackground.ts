@@ -3,7 +3,7 @@ import { Backgrounds, Config } from '../config';
 
 export default class IntroBackground extends Container {
     // private layers = [];
-    private tilingSprites: TilingSprite[] = [];
+    tilingSprites: TilingSprite[] = [];
 
     constructor(
         private config: Backgrounds = {
@@ -27,7 +27,7 @@ export default class IntroBackground extends Container {
             const tilingSprite = new TilingSprite({
                 texture,
                 width: Config.width,
-                height: texture.height
+                height: Config.height
             });
 
             tilingSprite.scale.set(scaleFactor);
