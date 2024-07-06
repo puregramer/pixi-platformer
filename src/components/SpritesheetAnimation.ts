@@ -1,5 +1,5 @@
-import { sound } from "@pixi/sound";
-import { AnimatedSprite, Assets, Container } from "pixi.js";
+import {sound} from "@pixi/sound";
+import {AnimatedSprite, Assets, Container, Texture} from "pixi.js";
 
 type Play = {
     anim: string;
@@ -9,7 +9,7 @@ type Play = {
 };
 
 export default class SpritesheetAnimation extends Container {
-    animationTextures: Record<string, AnimatedSprite["textures"]>;
+    animationTextures: Map<string, AnimatedSprite["textures"]>;
     sprite?: AnimatedSprite;
     speed = 1;
 
@@ -21,11 +21,39 @@ export default class SpritesheetAnimation extends Container {
         super();
 
         this.speed = speed;
-        this.animationTextures = Assets.get(name).animations;
+        // this.animationTextures = Assets.get(name).animations;
+        this.animationTextures = this.getAnimations(name);
+        console.log("== [animationTextures] ", this.animationTextures);
+    }
+
+    private getAnimations(name: string): Map<string, AnimatedSprite["textures"]> {
+        console.log('== getAnimations ', name);
+
+        const animations = new Map<string, Texture[]>();
+        for (const texture of Assets.cache['_cache'].entries()) {
+            const name = texture[0].split('/');
+            if (name[0] !== "player") continue;
+            if (!animations.has(name[1])) {
+                animations.set(name[1], []);
+            }
+            animations.get(name[1])?.push(texture[1]);
+            animations.set(name[1], animations.get(name[1])!.sort((a: Texture, b: Texture): number => {
+                if (a.label && b.label) {
+                    if (a.label < b.label) {
+                        return -1;
+                    }
+                    if (a.label > b.label) {
+                        return 1;
+                    }
+                }
+                return 0;
+            }));
+        }
+        return animations;
     }
 
     private initAnimation(anim: string) {
-        const textures = this.animationTextures[anim];
+        const textures = this.animationTextures.get(anim);
 
         if (!textures) {
             console.error(`Animation ${anim} not found`);
@@ -40,7 +68,7 @@ export default class SpritesheetAnimation extends Container {
         return sprite;
     }
 
-    play({ anim, soundName, loop = false, speed = this.speed }: Play) {
+    play({anim, soundName, loop = false, speed = this.speed}: Play) {
         if (this.sprite) {
             this.sprite.stop();
             this.removeChild(this.sprite);

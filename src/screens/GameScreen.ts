@@ -1,12 +1,14 @@
 import { Container } from 'pixi.js';
 import ParallaxBackground from '../components/ParallaxBackground';
 import { Config } from '../config';
+import {Player} from "../components/Player";
 
 export class GameScreen extends Container {
     public static assetBundles = [ 'common', 'game'];
     public readonly gameContainer: Container;
 
     private background: ParallaxBackground;
+    private player: Player;
 
     constructor() {
         super();
@@ -14,12 +16,24 @@ export class GameScreen extends Container {
         this.addChild(this.gameContainer);
 
         this.background = new ParallaxBackground(Config.backgrounds.walls);
-        this.gameContainer.addChild(this.background);
+
+        this.player = new Player();
+        this.player.x = window.innerWidth / 2;
+        this.player.y = window.innerHeight - this.player.height / 0.5;
+
+        this.gameContainer.addChild(this.background, this.player);
 
     }
 
-   /* public resize(width: number, height: number) {
+    public resize(width: number, height: number) {
+        if (this.player) {
+            this.player.x = width / 2;
+            this.player.y = height - this.player.height / 0.5;
+        }
 
-    }*/
+        /*if (this.background) {
+            this.background.resize(width, height);
+        }*/
+    }
 
 }

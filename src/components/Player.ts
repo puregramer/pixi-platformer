@@ -28,11 +28,11 @@ export class Player extends Container {
         idle: {
             anim: "idle",
             loop: true,
-            speed: 0.3,
+            speed: 0.13,
         },
         jump: {
             anim: "jump",
-            soundName: "jump2",
+            soundName: "jump",
             loop: false,
             speed: 0.5,
         },
@@ -79,7 +79,7 @@ export class Player extends Container {
     constructor() {
         super();
 
-        this.anim = new SpritesheetAnimation("wizard");
+        this.anim = new SpritesheetAnimation("player");
 
         this.addChild(this.anim);
 
