@@ -12,7 +12,7 @@ export default class TextButton extends ButtonContainer {
             style: {
                 fontFamily: 'PixAntiqua',
                 fontSize: 35,
-                fill: '#333',
+                fill: 'white',
             }
         });
         // this.buttonText.x = 0.5;

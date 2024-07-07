@@ -25,8 +25,8 @@ export class HomeScreen extends Container{
 
     /** Resize the screen, fired whenever window size changes  */
     public resize(width: number, height: number) {
-        this.startButton.x = width * 0.45;
-        this.startButton.y = height * 0.75;
+        this.startButton.x = (width / 2) - (this.startButton.width / 2);
+        this.startButton.y = height * 0.7;
     }
 
 }
