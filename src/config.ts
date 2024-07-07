@@ -29,7 +29,7 @@ export const Config = {
                 'foreground',
                 'floor',
             ],
-            panSpeed: 0.2,
+            panSpeed: 0.01,
         }
     }
 };

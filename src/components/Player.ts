@@ -34,34 +34,34 @@ export class Player extends Container {
             anim: "jump",
             soundName: "jump",
             loop: false,
-            speed: 0.5,
+            speed: 0.11,
         },
         walk: {
             anim: "walk",
             loop: true,
-            speed: 1,
+            speed: 0.35,
         },
         dash: {
-            anim: "dash",
-            soundName: "dash",
-            loop: false,
-            speed: 1,
+            anim: "run",
+            // soundName: "dash",
+            loop: true,
+            speed: 0.35,
         },
     };
 
     config = {
-        speed: 10,
-        turnDuration: 0.15,
+        speed: 5,
+        turnDuration: 0,
         decelerateDuration: 0.1,
         scale: 1,
         jump: {
-            height: 200,
+            height: 150,
             duration: 0.3,
             ease: "sine",
         },
         dash: {
             speedMultiplier: 6,
-            duration: 0.1,
+            duration: 0.5,
         },
     };
 

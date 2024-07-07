@@ -7,8 +7,8 @@ export class GameScreen extends Container {
     public static assetBundles = [ 'common', 'game'];
     public readonly gameContainer: Container;
 
-    private background: ParallaxBackground;
-    private player: Player;
+    readonly background: ParallaxBackground;
+    private readonly player: Player;
 
     constructor() {
         super();
@@ -20,6 +20,8 @@ export class GameScreen extends Container {
         this.player = new Player();
         this.player.x = window.innerWidth / 2;
         this.player.y = window.innerHeight - this.player.height / 0.5;
+
+        this.background.initPlayerMovement(this.player);
 
         this.gameContainer.addChild(this.background, this.player);
 
