@@ -3,8 +3,8 @@ import { initAssets } from './utils/assets';
 import { navigation } from './utils/navigation';
 import { sound } from '@pixi/sound';
 import { Config } from './config';
-import { LoadScreen } from './screens/LoadScreen';
 import { getUrlParam } from './utils/getUrlParams';
+import { LoadScreen } from './screens/LoadScreen';
 import { HomeScreen } from './screens/HomeScreen';
 import { GameScreen } from './screens/GameScreen';
 

@@ -18,6 +18,8 @@ export const Config = {
                 'buildings-bg',
                 'near-buildings-bg',
             ],
+            tile: [
+            ],
             panSpeed: 0.2,
         },
         walls: {
@@ -27,6 +29,8 @@ export const Config = {
             ],
             layers: [
                 'foreground',
+            ],
+            tile: [
                 'floor',
             ],
             panSpeed: 0.01,

@@ -92,7 +92,7 @@ export default class SpritesheetAnimation extends Container {
         this.sprite.gotoAndPlay(0);
 
         // if (soundName) sound.play(soundName);
-        if (soundName) sfx.play('game/jump.ogg');
+        if (soundName) sfx.play(`game/${soundName}.ogg`);
 
         this.addChild(this.sprite);
 

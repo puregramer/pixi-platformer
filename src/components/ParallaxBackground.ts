@@ -32,7 +32,8 @@ export default class ParallaxBackground extends Container {
             const tilingSprite = new TilingSprite({
                 texture,
                 width: Config.width,
-                height: Config.height
+                height: Config.height,
+                tileScale: { x: 0.95, y: 0.95 },
             });
 
             tilingSprite.scale.set(scaleFactor);
