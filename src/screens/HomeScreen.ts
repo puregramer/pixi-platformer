@@ -2,19 +2,19 @@ import { Container } from 'pixi.js';
 import TextButton from '../components/button/TextButton';
 import { navigation } from '../utils/navigation';
 import { GameScreen } from './GameScreen';
-import IntroBackground from '../components/IntroBackground';
-import { Config } from '../config';
+import Intro from '../components/stage/Intro';
 
 export class HomeScreen extends Container{
     /** Assets bundles required by this screen */
     public static assetBundles = ['common'];
-    private background: IntroBackground;
+    private background: Intro;
     private startButton: TextButton;
 
     constructor() {
         super();
 
-        this.background = new IntroBackground(Config.backgrounds.buildings);
+        // this.background = new IntroBackground(Config.backgrounds.buildings);
+        this.background = new Intro();
         this.addChild(this.background);
 
         this.startButton = new TextButton();
