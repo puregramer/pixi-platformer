@@ -5,8 +5,8 @@ export type Backgrounds = {
 };
 
 export const Config = {
-    width: 600,
-    height: 480,
+    width: 384,
+    height: 240,
 
     backgrounds: {
         buildings: {
