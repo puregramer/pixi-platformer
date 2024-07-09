@@ -1,24 +1,30 @@
-import { Container, Texture } from 'pixi.js';
-import { CompositeTilemap } from '@pixi/tilemap';
-import { Config } from '../../config';
+import { Container, Sprite, Texture } from 'pixi.js';
 
 export default class Intro extends Container {
+    private bgList = [
+        'skyline-a',
+        'skyline-a',
+        'skyline-b',
+        'skyline-a',
+    ];
+    private bgWidth = 120;
 
     constructor() {
         super();
 
-        const introBg = new CompositeTilemap();
+        for (let i = 0; i < this.bgList.length; i++) {
+            const texture = Texture.from(`background-buildings/${this.bgList[i]}`);
+            console.log("= texture", texture);
+            // console.log("= x y ", aPosition[i], aPosition[i + 1]);
+            const sprite = Sprite.from(texture);
+            sprite.scale.set(1);
+            sprite.x = i * this.bgWidth;
 
-        // const tile = Texture.from(`background-buildings/${Config.backgrounds.buildings.bg[0]}`);
 
-        introBg.tile(`background-buildings/${Config.backgrounds.buildings.bg[0]}`, 0, 0,
-            { rotate:2, tileWidth: 240, tileHeight: 120 , u: 120, v: 120});
-        // introBg.tileRotate(0);
-        // introBg.tile(tile, 0, 0)
-        this.addChild(introBg);
+            this.addChild(sprite);
+
+        }
 
     }
-
-
 
 }
