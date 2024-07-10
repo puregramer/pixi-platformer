@@ -2,20 +2,13 @@ import { Container, Sprite, Texture } from 'pixi.js';
 import { Config } from '../../config';
 
 export default class Intro extends Container {
-    private bgList = [
-        'skyline-a',
-        // 'skyline-a',
-        'skyline-b',
-        'skyline-a',
-    ];
-    private bgWidth = 128;
     layerSprites: Sprite[] = [];
 
     constructor() {
         super();
 
-        for (let i = 0; i < this.bgList.length; i++) {
-            const texture = Texture.from(`background-buildings/${this.bgList[i]}`);
+        for (let i = 0; i < Config.backgrounds.buildings.bg.length; i++) {
+            const texture = Texture.from(`background-buildings/${Config.backgrounds.buildings.bg[i]}`);
             console.log("= texture", texture);
             const scaleFactor = Config.height / texture.height;
             console.log("= scaleFactor", scaleFactor);
@@ -23,8 +16,7 @@ export default class Intro extends Container {
             const sprite = Sprite.from(texture);
             sprite.scale.set(scaleFactor);
 
-            sprite.x = (i * this.bgWidth) * scaleFactor;
-
+            sprite.x = (i * (texture.width - 1)) * scaleFactor;
 
             this.addChild(sprite);
 

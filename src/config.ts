@@ -13,17 +13,25 @@ export const Config = {
             bg: [
                 'skyline-a',
                 'skyline-b',
+                'skyline-a',
             ],
             layers: [
                 'buildings-bg',
                 'near-buildings-bg',
             ],
             tile: [
+                'floor',
             ],
             panSpeed: 0.2,
         },
         walls: {
             bg: [
+                'bg-wall',
+                'bg-wall',
+                'bg-wall',
+                'bg-wall-with-supports',
+                'bg-wall',
+                'bg-wall',
                 'bg-wall',
                 'bg-wall-with-supports',
             ],

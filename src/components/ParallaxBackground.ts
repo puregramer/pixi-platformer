@@ -1,12 +1,11 @@
-import { Container, TilingSprite, Ticker, Texture } from "pixi.js";
+import { Container, TilingSprite, Ticker, Texture, Sprite } from 'pixi.js';
 import { centerObjects } from "../utils/align";
 import { Backgrounds, Config } from '../config';
 
 export default class ParallaxBackground extends Container {
-    // name = "Background";
-
     layers: string[] = [];
-    tilingSprites: TilingSprite[] = [];
+    // tilingSprites: TilingSprite[] = [];
+    sprites: Sprite[] = [];
 
     constructor(
         protected config: Backgrounds = {
@@ -22,7 +21,7 @@ export default class ParallaxBackground extends Container {
         // centerObjects(this);
     }
 
-    init() {
+    /*init() {
         for (const bg of this.config.bg) {
             console.log("= bg", bg);
             const texture = Texture.from(`background-walls/${bg}`);
@@ -33,17 +32,33 @@ export default class ParallaxBackground extends Container {
                 texture,
                 width: Config.width,
                 height: Config.height,
-                tileScale: { x: 0.95, y: 0.95 },
+                // tileScale: { x: 1, y: 1 },
             });
 
             tilingSprite.scale.set(scaleFactor);
 
-            // tilingSprite.name = layer;
             tilingSprite.anchor.set(0.5);
 
             this.tilingSprites.push(tilingSprite);
 
             this.addChild(tilingSprite);
+        }
+    }*/
+
+    init() {
+        for (let i = 0; i < Config.backgrounds.walls.bg.length; i++) {
+            const texture = Texture.from(`background-walls/${Config.backgrounds.walls.bg[i]}`);
+            console.log("= texture", texture);
+
+            const scaleFactor = Config.height / texture.height;
+            console.log("= scaleFactor", scaleFactor);
+            // console.log("= x y ", aPosition[i], aPosition[i + 1]);
+            const sprite = Sprite.from(texture);
+            sprite.scale.set(scaleFactor);
+
+            sprite.x = (i * (texture.width - 1)) * scaleFactor;
+
+            this.addChild(sprite);
         }
     }
 
@@ -72,7 +87,7 @@ export default class ParallaxBackground extends Container {
 
     resize(width: number, height: number) {
         console.log("= resize", width, height);
-        for (const layer of this.tilingSprites) {
+        for (const layer of this.sprites) {
             const scaleFactor = height / layer.texture.height;
 
             layer.width = width / scaleFactor;
