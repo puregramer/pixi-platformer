@@ -5,7 +5,7 @@ export type Backgrounds = {
 };
 
 export const Config = {
-    width: 384,
+    width: 382,
     height: 240,
 
     backgrounds: {
@@ -27,16 +27,11 @@ export const Config = {
         walls: {
             bg: [
                 'bg-wall',
-                'bg-wall',
-                'bg-wall',
-                'bg-wall-with-supports',
-                'bg-wall',
-                'bg-wall',
-                'bg-wall',
-                'bg-wall-with-supports',
+                // 'bg-wall-with-supports',
             ],
             layers: [
                 'foreground',
+                'bg-wall-with-supports',
             ],
             tile: [
                 'floor',

@@ -19,7 +19,7 @@ export class GameScreen extends Container {
 
         this.player = new Player();
         this.player.x = window.innerWidth / 2;
-        this.player.y = window.innerHeight - this.player.height / 0.5;
+        this.player.y = window.innerHeight - this.player.height / 0.75;
 
         this.background.initPlayerMovement(this.player);
 
@@ -30,7 +30,7 @@ export class GameScreen extends Container {
     public resize(width: number, height: number) {
         if (this.player) {
             this.player.x = width / 2;
-            this.player.y = height - this.player.height / 0.5;
+            this.player.y = height - this.player.height / 0.75;
         }
 
         /*if (this.background) {

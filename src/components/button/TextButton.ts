@@ -11,7 +11,7 @@ export default class TextButton extends ButtonContainer {
             text: 'START',
             style: {
                 fontFamily: 'PixAntiqua',
-                fontSize: 35,
+                fontSize: 20,
                 fill: 'white',
             }
         });

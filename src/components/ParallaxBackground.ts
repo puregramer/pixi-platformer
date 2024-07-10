@@ -3,8 +3,7 @@ import { centerObjects } from "../utils/align";
 import { Backgrounds, Config } from '../config';
 
 export default class ParallaxBackground extends Container {
-    layers: string[] = [];
-    // tilingSprites: TilingSprite[] = [];
+    tilingSprites: TilingSprite[] = [];
     sprites: Sprite[] = [];
 
     constructor(
@@ -18,34 +17,46 @@ export default class ParallaxBackground extends Container {
 
         this.init();
 
-        // centerObjects(this);
+        centerObjects(this);
     }
 
-    /*init() {
+    init() {
         for (const bg of this.config.bg) {
             console.log("= bg", bg);
             const texture = Texture.from(`background-walls/${bg}`);
             console.log("= texture", texture);
 
-            const scaleFactor = Config.width / texture.height;
+            const scaleFactor = Config.height / texture.height;
             const tilingSprite = new TilingSprite({
                 texture,
                 width: Config.width,
                 height: Config.height,
-                // tileScale: { x: 1, y: 1 },
+                tileScale: { x: scaleFactor, y: scaleFactor },
             });
 
             tilingSprite.scale.set(scaleFactor);
-
-            tilingSprite.anchor.set(0.5);
+            tilingSprite.anchor.set(0, 0.5);
 
             this.tilingSprites.push(tilingSprite);
 
             this.addChild(tilingSprite);
         }
-    }*/
 
-    init() {
+         for (const layer of Config.backgrounds.walls.layers) {
+            console.log("= layer", layer);
+            const texture = Texture.from(`background-walls/${layer}`);
+
+            const sprite = Sprite.from(texture);
+
+            // sprite.scale.set(0.5);
+            // sprite.anchor.set(0.5);
+            this.sprites.push(sprite);
+
+            this.addChild(sprite);
+        }
+    }
+
+    /*init() {
         for (let i = 0; i < Config.backgrounds.walls.bg.length; i++) {
             const texture = Texture.from(`background-walls/${Config.backgrounds.walls.bg[i]}`);
             console.log("= texture", texture);
@@ -60,7 +71,7 @@ export default class ParallaxBackground extends Container {
 
             this.addChild(sprite);
         }
-    }
+    }*/
 
     initPlayerMovement(object: {
         state: { velocity: { x: number; y: number } };
