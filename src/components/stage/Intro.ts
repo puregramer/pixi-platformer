@@ -22,18 +22,20 @@ export default class Intro extends Container {
 
         }
 
-       /* for (const layer of Config.backgrounds.buildings.layers) {
+        for (const layer of Config.backgrounds.buildings.layers) {
             console.log("= layer", layer);
-            const texture = Texture.from(`background-buildings/${layer}`);
+            const texture = Texture.from(`background-buildings/${layer.name}`);
 
             const sprite = Sprite.from(texture);
+            sprite.scale.set(layer.scale);
+            sprite.anchor.set(0.5);
+            sprite.x = layer.x;
+            sprite.y = layer.y;
 
-            // sprite.scale.set(0.5);
-            // sprite.anchor.set(0.5);
             this.layerSprites.push(sprite);
 
             this.addChild(sprite);
-        }*/
+        }
 
     }
 

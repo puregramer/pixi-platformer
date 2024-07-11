@@ -11,6 +11,7 @@ export default class IntroBackground extends Container {
             layers: [],
             bg: [],
             panSpeed: 1,
+            tile: []
         }
     ) {
         super();

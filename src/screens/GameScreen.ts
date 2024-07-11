@@ -18,6 +18,8 @@ export class GameScreen extends Container {
         this.background = new ParallaxBackground(Config.backgrounds.walls);
 
         this.player = new Player();
+        this.player.scale.set(0.7);
+
         this.player.x = window.innerWidth / 2;
         this.player.y = window.innerHeight - this.player.height / 0.75;
 

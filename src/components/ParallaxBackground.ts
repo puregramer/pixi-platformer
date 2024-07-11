@@ -11,13 +11,14 @@ export default class ParallaxBackground extends Container {
             panSpeed: 1,
             bg: [],
             layers: [],
+            tile: []
         }
     ) {
         super();
 
         this.init();
 
-        centerObjects(this);
+        // centerObjects(this);
     }
 
     init() {
@@ -35,43 +36,30 @@ export default class ParallaxBackground extends Container {
             });
 
             tilingSprite.scale.set(scaleFactor);
-            tilingSprite.anchor.set(0, 0.5);
+            // tilingSprite.anchor.set(0, 0.5);
+            tilingSprite.anchor.set(0.5);
+
 
             this.tilingSprites.push(tilingSprite);
 
             this.addChild(tilingSprite);
         }
 
-         for (const layer of Config.backgrounds.walls.layers) {
-            console.log("= layer", layer);
-            const texture = Texture.from(`background-walls/${layer}`);
+        for (const layer of Config.backgrounds.walls.layers) {
+            console.log('= layer', layer);
+            const texture = Texture.from(`background-walls/${layer.name}`);
 
             const sprite = Sprite.from(texture);
+            sprite.scale.set(layer.scale);
+            sprite.anchor.set(0.5);
+            // sprite.x = layer.x;
+            // sprite.y = layer.y;
 
-            // sprite.scale.set(0.5);
-            // sprite.anchor.set(0.5);
             this.sprites.push(sprite);
 
             this.addChild(sprite);
         }
     }
-
-    /*init() {
-        for (let i = 0; i < Config.backgrounds.walls.bg.length; i++) {
-            const texture = Texture.from(`background-walls/${Config.backgrounds.walls.bg[i]}`);
-            console.log("= texture", texture);
-
-            const scaleFactor = Config.height / texture.height;
-            console.log("= scaleFactor", scaleFactor);
-            // console.log("= x y ", aPosition[i], aPosition[i + 1]);
-            const sprite = Sprite.from(texture);
-            sprite.scale.set(scaleFactor);
-
-            sprite.x = (i * (texture.width - 1)) * scaleFactor;
-
-            this.addChild(sprite);
-        }
-    }*/
 
     initPlayerMovement(object: {
         state: { velocity: { x: number; y: number } };

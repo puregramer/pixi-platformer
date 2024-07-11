@@ -53,7 +53,7 @@ export class Player extends Container {
         speed: 5,
         turnDuration: 0,
         decelerateDuration: 0.1,
-        scale: 1,
+        scale: 0.7,
         jump: {
             height: 100,
             duration: 0.3,
