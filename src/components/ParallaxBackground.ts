@@ -22,7 +22,25 @@ export default class ParallaxBackground extends Container {
     }
 
     init() {
-        for (const bg of this.config.bg) {
+
+        const textureBg1 = Texture.from(`background-walls/${this.config.bg[0]}`);
+        const textureBg2 = Texture.from(`background-walls/${this.config.bg[1]}`);
+        const scaleFactor = Config.height / textureBg1.height;
+        const tempSprite1 = Sprite.from(textureBg1);
+        const tempSprite2 = Sprite.from(textureBg2);
+
+        tempSprite2.x = 47;
+        tempSprite1.addChild(tempSprite2);
+        const tilingSprite = new TilingSprite({
+            texture: tempSprite1.texture,
+            width: Config.width,
+            height: Config.height,
+            tileScale: { x: scaleFactor, y: scaleFactor },
+        });
+        this.addChild(tilingSprite);
+        // this.addChild(tempSprite1);
+
+        /*for (const bg of this.config.bg) {
             console.log("= bg", bg);
             const texture = Texture.from(`background-walls/${bg}`);
             console.log("= texture", texture);
@@ -36,14 +54,17 @@ export default class ParallaxBackground extends Container {
             });
 
             tilingSprite.scale.set(scaleFactor);
+            console.log("= tilingSprite scale", scaleFactor);
             // tilingSprite.anchor.set(0, 0.5);
-            tilingSprite.anchor.set(0.5);
+            // tilingSprite.anchor.set(0.5);
+            // tilingSprite.x = 0;
+            // tilingSprite.y = 0;
 
 
             this.tilingSprites.push(tilingSprite);
 
             this.addChild(tilingSprite);
-        }
+        }*/
 
         for (const layer of Config.backgrounds.walls.layers) {
             console.log('= layer', layer);
@@ -51,9 +72,9 @@ export default class ParallaxBackground extends Container {
 
             const sprite = Sprite.from(texture);
             sprite.scale.set(layer.scale);
-            sprite.anchor.set(0.5);
-            // sprite.x = layer.x;
-            // sprite.y = layer.y;
+            // sprite.anchor.set(0.5);
+            sprite.x = layer.x;
+            sprite.y = layer.y;
 
             this.sprites.push(sprite);
 

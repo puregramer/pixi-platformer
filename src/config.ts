@@ -46,21 +46,21 @@ export const Config = {
         walls: {
             bg: [
                 'bg-wall',
-                // 'bg-wall-with-supports',
+                'bg-wall-with-supports',
             ],
             layers: [
                 {
                     name: 'foreground',
                     scale: 1,
                     x: 500,
-                    y: 0,
+                    y: 20,
                 },
-                {
+                /*{
                     name: 'bg-wall-with-supports',
-                    scale: 1,
+                    scale: 1.15,
                     x: 200,
                     y: 0,
-                },
+                },*/
             ],
             tile: [
                 'floor',
