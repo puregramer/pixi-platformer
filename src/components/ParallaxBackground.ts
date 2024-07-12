@@ -23,24 +23,9 @@ export default class ParallaxBackground extends Container {
 
     init() {
 
-        const textureBg1 = Texture.from(`background-walls/${this.config.bg[0]}`);
-        const textureBg2 = Texture.from(`background-walls/${this.config.bg[1]}`);
-        const scaleFactor = Config.height / textureBg1.height;
-        const tempSprite1 = Sprite.from(textureBg1);
-        const tempSprite2 = Sprite.from(textureBg2);
+        //todo  background.interactiveChildren = false // visible ?
 
-        tempSprite2.x = 47;
-        tempSprite1.addChild(tempSprite2);
-        const tilingSprite = new TilingSprite({
-            texture: tempSprite1.texture,
-            width: Config.width,
-            height: Config.height,
-            tileScale: { x: scaleFactor, y: scaleFactor },
-        });
-        this.addChild(tilingSprite);
-        // this.addChild(tempSprite1);
-
-        /*for (const bg of this.config.bg) {
+        for (const bg of this.config.bg) {
             console.log("= bg", bg);
             const texture = Texture.from(`background-walls/${bg}`);
             console.log("= texture", texture);
@@ -64,7 +49,15 @@ export default class ParallaxBackground extends Container {
             this.tilingSprites.push(tilingSprite);
 
             this.addChild(tilingSprite);
-        }*/
+        }
+
+        const tileSprite = new TilingSprite({
+            texture: Texture.from(`background-walls/${Config.backgrounds.walls.tile[0]}`),
+            width: Config.width,
+            height: 20,
+        });
+        tileSprite.y = Config.height - 20;
+        this.addChild(tileSprite);
 
         for (const layer of Config.backgrounds.walls.layers) {
             console.log('= layer', layer);
@@ -95,12 +88,13 @@ export default class ParallaxBackground extends Container {
 
     updatePosition(x: number, y: number) {
         for (const [index, child] of this.children.entries()) {
+            console.log("index", index);
             if (child instanceof TilingSprite) {
-                child.tilePosition.x -= x * index * this.config.panSpeed;
-                child.tilePosition.y -= y * index * this.config.panSpeed;
+                child.tilePosition.x -= x * this.config.panSpeed;
+                child.tilePosition.y -= y * this.config.panSpeed;
             } else {
-                child.x -= x * index * this.config.panSpeed;
-                child.y -= y * index * this.config.panSpeed;
+                child.x -= x * this.config.panSpeed;
+                child.y -= y * this.config.panSpeed;
             }
         }
     }

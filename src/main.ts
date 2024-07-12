@@ -10,6 +10,7 @@ import { GameScreen } from './screens/GameScreen';
 
 /** The PixiJS app Application instance, shared across the project */
 export const app = new Application();
+(globalThis as any).__PIXI_APP__ = app; // for Pixi chrome DevTool
 
 /** Set up a resize function for the app */
 function resize() {
@@ -57,6 +58,7 @@ async function init() {
         resolution: Math.max(window.devicePixelRatio, 2),
         backgroundColor: '#000',
     });
+
 
     // Add pixi canvas element (app.canvas) to the document's body
     document.body.appendChild(app.canvas);

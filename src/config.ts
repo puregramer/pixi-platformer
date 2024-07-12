@@ -45,8 +45,8 @@ export const Config = {
         },
         walls: {
             bg: [
+                // 'bg-wall-with-supports',
                 'bg-wall',
-                'bg-wall-with-supports',
             ],
             layers: [
                 {
@@ -55,7 +55,7 @@ export const Config = {
                     x: 500,
                     y: 20,
                 },
-                /*{
+              /*  {
                     name: 'bg-wall-with-supports',
                     scale: 1.15,
                     x: 200,
