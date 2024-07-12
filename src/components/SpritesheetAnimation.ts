@@ -40,10 +40,12 @@ export default class SpritesheetAnimation extends Container {
             animations.get(name[1])?.push(texture[1]);
             animations.set(name[1], animations.get(name[1])!.sort((a: Texture, b: Texture): number => {
                 if (a.label && b.label) {
-                    if (a.label < b.label) {
+                    const numberA = a.label.match(/[0-9]+/g);
+                    const numberB = b.label.match(/[0-9]+/g);
+                    if (Number(numberA![0]) < Number(numberB![0])) {
                         return -1;
                     }
-                    if (a.label > b.label) {
+                    if (Number(numberA![0]) > Number(numberB![0])) {
                         return 1;
                     }
                 }

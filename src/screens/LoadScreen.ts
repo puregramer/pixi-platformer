@@ -24,11 +24,11 @@ export class LoadScreen extends Container {
         });
         const style = new TextStyle({
             fontFamily: 'PixAntiqua',
-            fontSize: 36,
+            fontSize: 20,
             fontStyle: 'italic',
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
             fill: { fill },
-            stroke: { color: '#333', width: 5, join: 'round' },
+            stroke: { color: '#333', width: 3, join: 'round' },
             dropShadow: {
                 color: '#333',
                 blur: 4,

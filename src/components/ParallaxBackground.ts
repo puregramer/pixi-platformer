@@ -30,21 +30,20 @@ export default class ParallaxBackground extends Container {
             const texture = Texture.from(`background-walls/${bg}`);
             console.log("= texture", texture);
 
-            const scaleFactor = Config.height / texture.height;
+            // const scaleFactor = Config.height / texture.height;
             const tilingSprite = new TilingSprite({
                 texture,
                 width: Config.width,
                 height: Config.height,
-                tileScale: { x: scaleFactor, y: scaleFactor },
+                // tileScale: { x: scaleFactor, y: scaleFactor },
             });
 
-            tilingSprite.scale.set(scaleFactor);
-            console.log("= tilingSprite scale", scaleFactor);
+            tilingSprite.scale.set(1);
+            // console.log("= tilingSprite scale", scaleFactor);
             // tilingSprite.anchor.set(0, 0.5);
             // tilingSprite.anchor.set(0.5);
             // tilingSprite.x = 0;
             // tilingSprite.y = 0;
-
 
             this.tilingSprites.push(tilingSprite);
 
@@ -56,7 +55,7 @@ export default class ParallaxBackground extends Container {
             width: Config.width,
             height: 20,
         });
-        tileSprite.y = Config.height - 20;
+        tileSprite.y = Config.height - 30;
         this.addChild(tileSprite);
 
         for (const layer of Config.backgrounds.walls.layers) {
@@ -87,8 +86,7 @@ export default class ParallaxBackground extends Container {
     }
 
     updatePosition(x: number, y: number) {
-        for (const [index, child] of this.children.entries()) {
-            console.log("index", index);
+        for (const child of this.children.values()) {
             if (child instanceof TilingSprite) {
                 child.tilePosition.x -= x * this.config.panSpeed;
                 child.tilePosition.y -= y * this.config.panSpeed;

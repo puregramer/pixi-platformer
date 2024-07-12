@@ -34,8 +34,8 @@ export const Config = {
                 {
                     name: 'near-buildings-bg',
                     scale: 1,
-                    x: 300,
-                    y: 200,
+                    x: 450,
+                    y: 140,
                 },
             ],
             tile: [
@@ -45,15 +45,15 @@ export const Config = {
         },
         walls: {
             bg: [
-                // 'bg-wall-with-supports',
-                'bg-wall',
+                'bg-wall-with-supports',
+                // 'bg-wall',
             ],
             layers: [
                 {
                     name: 'foreground',
                     scale: 1,
                     x: 500,
-                    y: 20,
+                    y: 0,
                 },
               /*  {
                     name: 'bg-wall-with-supports',

@@ -17,6 +17,7 @@ export class TiledBackground extends Container {
             texture: Texture.from('background'),
             width: app.screen.width,
             height: app.screen.height,
+            tileScale: { x: 0.5, y: 0.5 },
         });
         this.sprite.tileTransform.rotation = this.direction;
         this.addChild(this.sprite);

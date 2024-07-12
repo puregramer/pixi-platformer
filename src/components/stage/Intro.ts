@@ -1,4 +1,4 @@
-import { Container, Sprite, Texture } from 'pixi.js';
+import { Container, Sprite, Texture, TilingSprite } from 'pixi.js';
 import { Config } from '../../config';
 
 export default class Intro extends Container {
@@ -19,10 +19,29 @@ export default class Intro extends Container {
             sprite.x = (i * (texture.width - 1)) * scaleFactor;
 
             this.addChild(sprite);
-
         }
 
-        for (const layer of Config.backgrounds.buildings.layers) {
+        const tileLayer = new TilingSprite({
+            texture: Texture.from(`background-buildings/${Config.backgrounds.buildings.layers[0].name}`),
+            width: Config.width,
+            height: 124,
+        });
+        tileLayer.y = Config.height - 124;
+        this.addChild(tileLayer);
+
+
+        const texture = Texture.from(`background-buildings/${Config.backgrounds.buildings.layers[1].name}`);
+        const buildings = Sprite.from(texture);
+        buildings.scale.set(Config.backgrounds.buildings.layers[1].scale);
+        buildings.anchor.set(0.5);
+        buildings.x = Config.backgrounds.buildings.layers[1].x;
+        buildings.y = Config.backgrounds.buildings.layers[1].y;
+
+        this.layerSprites.push(buildings);
+
+        this.addChild(buildings);
+
+        /*for (const layer of Config.backgrounds.buildings.layers) {
             console.log("= layer", layer);
             const texture = Texture.from(`background-buildings/${layer.name}`);
 
@@ -35,7 +54,7 @@ export default class Intro extends Container {
             this.layerSprites.push(sprite);
 
             this.addChild(sprite);
-        }
+        }*/
 
     }
 
