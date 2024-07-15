@@ -14,14 +14,18 @@ export default class Keyboard extends EventEmitter {
         RIGHT: "RIGHT",
         JUMP: "JUMP",
         SHIFT: "SHIFT",
+        DASH: "DASH",
+        SHOT: "SHOT"
     } as const;
 
     static actionKeyMap = {
-        [Keyboard.actions.UP]: "KeyW",
-        [Keyboard.actions.DOWN]: "KeyS",
-        [Keyboard.actions.LEFT]: "KeyA",
-        [Keyboard.actions.RIGHT]: "KeyD",
-        [Keyboard.actions.JUMP]: "Space",
+        [Keyboard.actions.UP]: "ArrowUp",
+        [Keyboard.actions.DOWN]: "ArrowDown",
+        [Keyboard.actions.LEFT]: "ArrowLeft",
+        [Keyboard.actions.RIGHT]: "ArrowRight",
+        [Keyboard.actions.JUMP]: "KeyW",
+        [Keyboard.actions.DASH]: "KeyR",
+        [Keyboard.actions.SHOT]: "KeyE",
         [Keyboard.actions.SHIFT]: "ShiftLeft",
     } as const;
 

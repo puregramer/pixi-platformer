@@ -4,9 +4,11 @@ import SpritesheetAnimation from "./SpritesheetAnimation";
 import Keyboard from "../utils/Keyboard";
 import { waitFor } from '../utils/asyncUtils';
 
-enum Directions {
-    LEFT = -1,
-    RIGHT = 1,
+const Directions = {
+    LEFT: -1,
+    RIGHT: 1,
+    UP: -1,
+    DOWN: 1
 }
 
 type AnimState = {
@@ -100,15 +102,21 @@ export class Player extends Container {
     private onActionPress(action: keyof typeof Keyboard.actions) {
         switch (action) {
             case "LEFT":
-                this.move(Directions.LEFT);
+                this.moveX(Directions.LEFT);
                 break;
             case "RIGHT":
-                this.move(Directions.RIGHT);
+                this.moveX(Directions.RIGHT);
+                break;
+            case "UP":
+                this.moveY(Directions.UP);
+                break;
+            case "DOWN":
+                this.moveY(Directions.DOWN);
                 break;
             case "JUMP":
                 this.jump();
                 break;
-            case "SHIFT":
+            case "DASH":
                 this.dash();
                 break;
 
@@ -120,7 +128,9 @@ export class Player extends Container {
     onActionRelease(action: keyof typeof Keyboard.actions) {
         if (
             (action === "LEFT" && this.state.velocity.x < 0) ||
-            (action === "RIGHT" && this.state.velocity.x > 0)
+            (action === "RIGHT" && this.state.velocity.x > 0) ||
+            (action === "UP" && this.state.velocity.y < 0) ||
+            (action === "DOWN" && this.state.velocity.y > 0)
         ) {
             this.stopMovement();
         }
@@ -155,7 +165,7 @@ export class Player extends Container {
             if (this.currentState === jump || this.currentState === dash) return;
 
             this.setState(jump);
-        } else if (this.state.velocity.x !== 0) {
+        } else if (this.state.velocity.x !== 0 || this.state.velocity.y !== 0) {
             if (this.currentState === walk) return;
 
             this.setState(walk);
@@ -172,6 +182,7 @@ export class Player extends Container {
         this.decelerationTween = gsap.to(this.state.velocity, {
             duration: this.config.decelerateDuration,
             x: 0,
+            y: 0,
             ease: "power1.in",
             onComplete: () => {
                 this.updateAnimState();
@@ -179,7 +190,7 @@ export class Player extends Container {
         });
     }
 
-    async move(direction: Directions) {
+    async moveX(direction: number) {
         if (this.dashing) return;
 
         this.decelerationTween?.progress(1);
@@ -192,6 +203,21 @@ export class Player extends Container {
             duration: this.config.turnDuration,
             x: this.config.scale * direction,
         });
+    }
+
+    async moveY(direction: number) {
+        if (this.dashing) return;
+
+        this.decelerationTween?.progress(1);
+
+        this.state.velocity.y = direction * this.config.speed;
+
+        this.updateAnimState();
+
+        /*gsap.to(this.scale, {
+            duration: this.config.turnDuration,
+            y: this.config.scale * direction,
+        });*/
     }
 
     async dash() {

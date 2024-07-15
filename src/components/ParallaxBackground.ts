@@ -1,10 +1,11 @@
 import { Container, TilingSprite, Ticker, Texture, Sprite } from 'pixi.js';
-import { centerObjects } from "../utils/align";
+// import { centerObjects } from "../utils/align";
 import { Backgrounds, Config } from '../config';
 
 export default class ParallaxBackground extends Container {
     tilingSprites: TilingSprite[] = [];
     sprites: Sprite[] = [];
+    private tileTexture: Texture | undefined;
 
     constructor(
         protected config: Backgrounds = {
@@ -50,10 +51,11 @@ export default class ParallaxBackground extends Container {
             this.addChild(tilingSprite);
         }
 
+        this.tileTexture = Texture.from(`background-walls/${Config.backgrounds.walls.tile[0]}`);
         const tileSprite = new TilingSprite({
-            texture: Texture.from(`background-walls/${Config.backgrounds.walls.tile[0]}`),
+            texture: this.tileTexture,
             width: Config.width,
-            height: 20,
+            height: this.tileTexture.height,
         });
         tileSprite.y = Config.height - 30;
         this.addChild(tileSprite);
@@ -99,13 +101,13 @@ export default class ParallaxBackground extends Container {
 
     resize(width: number, height: number) {
         console.log("= resize", width, height);
-        for (const layer of this.sprites) {
+        /*for (const layer of this.sprites) {
             const scaleFactor = height / layer.texture.height;
 
             layer.width = width / scaleFactor;
             layer.scale.set(scaleFactor);
-        }
+        }*/
 
-        centerObjects(this);
+        // centerObjects(this);
     }
 }
