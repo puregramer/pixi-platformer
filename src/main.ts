@@ -88,5 +88,8 @@ async function init() {
     }
 }
 
+
+
+document.addEventListener('DOMContentLoaded', init);
 // Init everything
-init();
+// init();

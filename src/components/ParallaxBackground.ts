@@ -83,6 +83,7 @@ export default class ParallaxBackground extends Container {
             const x = object.state.velocity.x * delta.deltaMS;
             const y = object.state.velocity.y * delta.deltaMS;
 
+            // console.log("=x ", x);
             this.updatePosition(x, y);
         });
     }
