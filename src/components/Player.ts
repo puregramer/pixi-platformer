@@ -1,9 +1,10 @@
 import gsap from "gsap";
-import { Container } from "pixi.js";
+import { Container, TilingSprite } from 'pixi.js';
 import SpritesheetAnimation from "./SpritesheetAnimation";
 import Keyboard from "../utils/Keyboard";
+import { collisionTileCheck } from '../utils/collision';
 
-const Directions = {
+export const Directions = {
     LEFT: -1,
     RIGHT: 1,
     UP: 1,
@@ -24,6 +25,7 @@ export class Player extends Container {
     private keyboard = Keyboard.getInstance();
     anim: SpritesheetAnimation;
     currentState: AnimState | null = null;
+    backgroundTile: TilingSprite;
 
     static animStates: Record<string, AnimState> = {
         idle: {
@@ -61,7 +63,7 @@ export class Player extends Container {
             ease: "sine",
         },
         dash: {
-            speedMultiplier: 6,
+            speedMultiplier: 4, // 6
             duration: 0.5,
         },
     };
@@ -77,9 +79,9 @@ export class Player extends Container {
 
     private decelerationTween?: gsap.core.Tween;
 
-    constructor() {
+    constructor(backgroundTile: TilingSprite) {
         super();
-
+        this.backgroundTile = backgroundTile;
         this.anim = new SpritesheetAnimation("player");
 
         this.addChild(this.anim);
@@ -214,10 +216,13 @@ export class Player extends Container {
 
     async moveY(direction: number) {
         if (this.jumping) return;
+        console.log(collisionTileCheck(this, this.backgroundTile, direction));
+        if (collisionTileCheck(this, this.backgroundTile, direction)) return;
+
 
         await gsap.to(this, {
-            duration: 0.3,
-            y: `-=${5 * direction}`,
+            duration: 0.2,
+            y: `-=${3 * direction}`,
             ease: `sine.out`,
         });
 

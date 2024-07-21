@@ -6,6 +6,7 @@ export default class ParallaxBackground extends Container {
     tilingSprites: TilingSprite[] = [];
     sprites: Sprite[] = [];
     private tileTexture: Texture | undefined;
+    tileSprite: TilingSprite | undefined;
 
     constructor(
         protected config: Backgrounds = {
@@ -52,13 +53,14 @@ export default class ParallaxBackground extends Container {
         }
 
         this.tileTexture = Texture.from(`background-walls/${Config.backgrounds.walls.tile[0]}`);
-        const tileSprite = new TilingSprite({
+        this.tileSprite = new TilingSprite({
             texture: this.tileTexture,
             width: Config.width,
             height: this.tileTexture.height,
         });
-        tileSprite.y = Config.height - 30;
-        this.addChild(tileSprite);
+        this.tileSprite.y = Config.height - 30;
+
+        this.addChild(this.tileSprite);
 
         for (const layer of Config.backgrounds.walls.layers) {
             console.log('= layer', layer);
@@ -99,6 +101,14 @@ export default class ParallaxBackground extends Container {
             }
         }
     }
+
+    /*collisionCheck(object: {x: number, y: number}) {
+        Ticker.shared.add((delta) => {
+           console.log("= collisionCheck", delta, object.x, object.y);
+            // if (object.y > 180) object.y = 180;
+
+        });
+    }*/
 
     resize(width: number, height: number) {
         console.log("= resize", width, height);
