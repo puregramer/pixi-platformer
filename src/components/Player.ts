@@ -50,6 +50,11 @@ export class Player extends Container {
             loop: true,
             speed: 0.35,
         },
+        shoot: {
+            anim: "shoot",
+            loop: false,
+            speed: 0.15,
+        }
     };
 
     config = {
@@ -71,6 +76,7 @@ export class Player extends Container {
     state = {
         jumping: false,
         dashing: false,
+        shooting: false,
         velocity: {
             x: 0,
             y: 0,
@@ -120,6 +126,9 @@ export class Player extends Container {
             case "DASH":
                 this.dash();
                 break;
+            case "SHOOT":
+                this.shoot();
+                break;
 
             default:
                 break;
@@ -155,12 +164,21 @@ export class Player extends Container {
         this.updateAnimState();
     }
 
+    private set shooting(value: boolean) {
+        this.state.shooting = value;
+        this.updateAnimState();
+    }
+
     get dashing() {
         return this.state.dashing;
     }
 
+    get shooting() {
+        return this.state.shooting;
+    }
+
     private updateAnimState() {
-        const { walk, jump, dash, idle } = Player.animStates;
+        const { walk, jump, dash, idle, shoot } = Player.animStates;
 
         if (this.dashing) {
             // if (this.currentState === dash) return;
@@ -178,6 +196,9 @@ export class Player extends Container {
             if (this.currentState === walk) return;
 
             this.setState(walk);
+        } else if (this.shooting) {
+            if (this.currentState === shoot) return;
+            this.setState(shoot);
         } else {
             if (this.currentState === idle) return;
 
@@ -264,5 +285,16 @@ export class Player extends Container {
         });
 
         this.jumping = false;
+    }
+
+    async shoot() {
+        if (this.jumping) return;
+        this.shooting = true;
+        await gsap.to(this, {
+            duration: 0.2,
+            ease: `sine.out`,
+        });
+        this.shooting = false;
+        console.log("======shoot");
     }
 }

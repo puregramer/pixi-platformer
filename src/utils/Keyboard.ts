@@ -15,7 +15,7 @@ export default class Keyboard extends EventEmitter {
         JUMP: "JUMP",
         SHIFT: "SHIFT",
         DASH: "DASH",
-        SHOT: "SHOT"
+        SHOOT: "SHOOT"
     } as const;
 
     static actionKeyMap = {
@@ -25,7 +25,7 @@ export default class Keyboard extends EventEmitter {
         [Keyboard.actions.RIGHT]: "ArrowRight",
         [Keyboard.actions.JUMP]: "KeyW",
         [Keyboard.actions.DASH]: "KeyR",
-        [Keyboard.actions.SHOT]: "KeyE",
+        [Keyboard.actions.SHOOT]: "KeyE",
         [Keyboard.actions.SHIFT]: "ShiftLeft",
     } as const;
 
