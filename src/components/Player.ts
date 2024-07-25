@@ -320,17 +320,16 @@ export class Player extends Container {
         const {duration, ease} = this.config.shoot;
 
         this.decelerationTween?.progress(1);
-        this.decelerationTween = gsap.to(this.state.velocity, {
+        this.decelerationTween =  gsap.to(this.state.velocity, {
             duration: 0.1,
             x: 0,
             ease: "power1.in",
-/*            onComplete: () => {
-                this.updateAnimState();
-            },*/
+            onComplete: () => {
+                this.shooting = true;
+            },
         });
 
-        this.shooting = true;
-
+        // this.shooting = true;
         await gsap.to(this, {
             duration,
             ease,
