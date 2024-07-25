@@ -67,10 +67,19 @@ export class Player extends Container {
             duration: 0.3,
             ease: "sine",
         },
+        upDown: {
+            duration: 0.2,
+            moveY: 3,
+            ease: "sine",
+        },
         dash: {
             speedMultiplier: 4, // 6
             duration: 0.5,
         },
+        shoot: {
+            duration: 0.1,
+            ease: "sine",
+        }
     };
 
     state = {
@@ -240,11 +249,11 @@ export class Player extends Container {
         console.log(collisionTileCheck(this, this.backgroundTile, direction));
         if (collisionTileCheck(this, this.backgroundTile, direction)) return;
 
-
+        const {duration, moveY, ease} = this.config.upDown;
         await gsap.to(this, {
-            duration: 0.2,
-            y: `-=${3 * direction}`,
-            ease: `sine.out`,
+            duration,
+            y: `-=${moveY * direction}`,
+            ease,
         });
 
     }
@@ -289,10 +298,13 @@ export class Player extends Container {
 
     async shoot() {
         if (this.jumping) return;
+
+        const {duration, ease} = this.config.shoot;
         this.shooting = true;
+
         await gsap.to(this, {
-            duration: 0.2,
-            ease: `sine.out`,
+            duration,
+            ease,
         });
         this.shooting = false;
         console.log("======shoot");
