@@ -53,7 +53,12 @@ export class Player extends Container {
         shoot: {
             anim: "shoot",
             loop: false,
-            speed: 0.15,
+            speed: 0.2,
+        },
+        dashShoot: {
+            anim: "run-shoot",
+            loop: false,
+            speed: 0.35,
         }
     };
 
@@ -77,7 +82,7 @@ export class Player extends Container {
             duration: 0.5,
         },
         shoot: {
-            duration: 0.1,
+            duration: 0.2,
             ease: "sine",
         }
     };
@@ -86,6 +91,7 @@ export class Player extends Container {
         jumping: false,
         dashing: false,
         shooting: false,
+        dashShooting: false,
         velocity: {
             x: 0,
             y: 0,
@@ -116,6 +122,7 @@ export class Player extends Container {
     }
 
     private onActionPress(action: keyof typeof Keyboard.actions) {
+        const { dash} = Player.animStates;
         switch (action) {
             case "LEFT":
                 this.moveX(Directions.LEFT);
@@ -136,7 +143,11 @@ export class Player extends Container {
                 this.dash();
                 break;
             case "SHOOT":
-                this.shoot();
+                if (this.currentState === dash) {
+                    this.dashShoot();
+                } else {
+                    this.shoot();
+                }
                 break;
 
             default:
@@ -178,6 +189,11 @@ export class Player extends Container {
         this.updateAnimState();
     }
 
+    private set dashShooting(value: boolean) {
+        this.state.dashShooting = value;
+        this.updateAnimState();
+    }
+
     get dashing() {
         return this.state.dashing;
     }
@@ -187,7 +203,8 @@ export class Player extends Container {
     }
 
     private updateAnimState() {
-        const { walk, jump, dash, idle, shoot } = Player.animStates;
+        const { walk, jump, dash, idle, shoot, dashShoot  } = Player.animStates;
+        console.log("== currentState ", this.currentState);
 
         if (this.dashing) {
             // if (this.currentState === dash) return;
@@ -196,21 +213,20 @@ export class Player extends Container {
             } else {
                 this.setState(dash);
             }
-
         } else if (this.jumping) {
             if (this.currentState === jump) return;
-
             this.setState(jump);
         } else if (this.state.velocity.x !== 0) {
             if (this.currentState === walk) return;
-
             this.setState(walk);
         } else if (this.shooting) {
             if (this.currentState === shoot) return;
             this.setState(shoot);
+        } else if (this.dashShooting) {
+            if (this.currentState === dashShoot) return;
+            this.setState(dashShoot);
         } else {
             if (this.currentState === idle) return;
-
             this.setState(idle);
         }
     }
@@ -297,9 +313,22 @@ export class Player extends Container {
     }
 
     async shoot() {
-        if (this.jumping) return;
+        if (this.jumping || this.dashing) return;
 
+        // this.state.velocity.x = 0;
+        // this.stopMovement();
         const {duration, ease} = this.config.shoot;
+
+        this.decelerationTween?.progress(1);
+        this.decelerationTween = gsap.to(this.state.velocity, {
+            duration: 0.1,
+            x: 0,
+            ease: "power1.in",
+/*            onComplete: () => {
+                this.updateAnimState();
+            },*/
+        });
+
         this.shooting = true;
 
         await gsap.to(this, {
@@ -308,5 +337,27 @@ export class Player extends Container {
         });
         this.shooting = false;
         console.log("======shoot");
+    }
+
+    async dashShoot() {
+        if (this.state.velocity.x === 0) return;
+        const {duration, ease} = this.config.shoot;
+        this.dashShooting = true;
+
+        this.decelerationTween?.progress(1);
+
+        /*this.state.velocity.x =
+            this.config.speed *
+            this.config.dash.speedMultiplier *
+            this.getDirection();*/
+
+        await gsap.to(this, {
+            duration,
+            ease,
+        });
+
+        // this.state.velocity.x = this.config.speed * this.getDirection();
+        this.dashShooting = false;
+
     }
 }

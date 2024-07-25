@@ -27,13 +27,13 @@ export default class SpritesheetAnimation extends Container {
         console.log("== [animationTextures] ", this.animationTextures);
     }
 
-    private getAnimations(name: string): Map<string, AnimatedSprite["textures"]> {
-        console.log('== getAnimations ', name);
+    private getAnimations(aniName: string): Map<string, AnimatedSprite["textures"]> {
+        console.log('== getAnimations ', aniName);
 
         const animations = new Map<string, Texture[]>();
         for (const texture of Assets.cache['_cache'].entries()) {
             const name = texture[0].split('/');
-            if (name[0] !== "player") continue;
+            if (name[0] !== aniName) continue;
             if (!animations.has(name[1])) {
                 animations.set(name[1], []);
             }
