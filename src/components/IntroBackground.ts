@@ -2,7 +2,6 @@ import { Container, Sprite, Texture, TilingSprite } from 'pixi.js';
 import { Backgrounds, Config } from '../config';
 
 export default class IntroBackground extends Container {
-    // private layers = [];
     tilingSprites: TilingSprite[] = [];
     layerSprites: Sprite[] = [];
 

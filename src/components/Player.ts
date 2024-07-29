@@ -11,7 +11,7 @@ export const Directions = {
     DOWN: -1
 }
 
-type AnimState = {
+export type AnimState = {
     anim: string;
     soundName?: string;
     loop?: boolean;

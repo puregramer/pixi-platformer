@@ -1,4 +1,3 @@
-// import {sound} from "@pixi/sound";
 import {AnimatedSprite, Assets, Container, Texture} from "pixi.js";
 import {sfx} from "../utils/audio";
 
@@ -93,7 +92,6 @@ export default class SpritesheetAnimation extends Container {
         this.sprite.animationSpeed = speed;
         this.sprite.gotoAndPlay(0);
 
-        // if (soundName) sound.play(soundName);
         if (soundName) sfx.play(`game/${soundName}.ogg`);
 
         this.addChild(this.sprite);
