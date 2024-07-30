@@ -1,6 +1,7 @@
 import { Container } from 'pixi.js';
 import SpritesheetAnimation from './SpritesheetAnimation';
 import { AnimState } from './Player';
+import gsap from 'gsap';
 
 
 export default class Effect extends Container {
@@ -44,25 +45,39 @@ export default class Effect extends Container {
     };
 
     state = {
-        jumping: false,
-        dashing: false,
-        shooting: false,
-        dashShooting: false,
         velocity: {
             x: 0,
             y: 0,
         },
     };
 
-    constructor() {
+    constructor(effectName: string, direction: number) {
         super();
-
         this.anim = new SpritesheetAnimation("effect");
         this.addChild(this.anim);
+        this.playEffect(effectName, direction);
+    }
 
+    playEffect(effectName: string, direction: number) {
+        this.setState(Effect.animStates[effectName]);
+        switch (effectName) {
+            case 'shot':
+                this.animateShot(direction);
+                break;
+        }
+    }
+
+    async animateShot(direction: number) {
+        const {duration, moveX, speedMultiplier, ease} = this.config.shot;
+        await gsap.to(this, {
+            duration,
+            x: `-=${moveX * speedMultiplier * direction}`,
+            ease,
+        });
     }
 
     setState(state: AnimState) {
+        console.log("==== effect state", state);
         this.currentState = state;
         return this.anim.play(state);
     }

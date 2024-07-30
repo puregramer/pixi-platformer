@@ -3,6 +3,7 @@ import { Container, TilingSprite } from 'pixi.js';
 import SpritesheetAnimation from "./SpritesheetAnimation";
 import Keyboard from "../utils/Keyboard";
 import { collisionTileCheck } from '../utils/collision';
+import Effect from './Effect';
 
 export const Directions = {
     LEFT: -1,
@@ -26,6 +27,7 @@ export class Player extends Container {
     anim: SpritesheetAnimation;
     currentState: AnimState | null = null;
     backgroundTile: TilingSprite;
+    static effect: Effect;
 
     static animStates: Record<string, AnimState> = {
         idle: {
@@ -113,6 +115,8 @@ export class Player extends Container {
             if (buttonState === "pressed") this.onActionPress(action);
             else if (buttonState === "released") this.onActionRelease(action);
         });
+
+
     }
 
     setState(state: AnimState) {
@@ -321,6 +325,8 @@ export class Player extends Container {
         this.state.velocity.x = 0;
         this.shooting = true;
 
+        this.appendEffect();
+
         await gsap.to(this, {
             duration,
             ease,
@@ -341,4 +347,12 @@ export class Player extends Container {
         this.dashShooting = false;
 
     }
+
+    appendEffect() {
+        Player.effect = new Effect('shot', this.getDirection());
+        Player.effect.x =
+        Player.effect.x = window.innerWidth / 2;
+        Player.effect.y = window.innerHeight - this.height;
+    }
+
 }
