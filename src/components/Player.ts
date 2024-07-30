@@ -348,10 +348,11 @@ export class Player extends Container {
     }
 
     appendEffect() {
-        Player.effect = new Effect('shot', this.getDirection());
-        Player.effect.x = 10;
-        Player.effect.y = -9;
-        this.addChild(Player.effect);
+        const direction = this.getDirection();
+        Player.effect = new Effect('shot', direction);
+        Player.effect.x = this.x + (15 * direction);
+        Player.effect.y = this.y - 5;
+        this.parent?.addChild(Player.effect);
     }
 
 }

@@ -29,7 +29,7 @@ export default class Effect extends Container {
 
     config = {
         shot: {
-            scale: 0.8,
+            scale: 0.5,
             speedMultiplier: 0.3,
         },
         shotHit: {
@@ -67,11 +67,13 @@ export default class Effect extends Container {
 
     async animateShot(direction: number) {
         console.log("== direction ", direction);
+        const {scale, speedMultiplier} = this.config.shot;
+        this.scale.set(scale);
         Ticker.shared.add((delta) => {
-            const {scale, speedMultiplier} = this.config.shot;
+
             // this.x -= Number(`${delta.deltaMS * direction}`);
-            this.scale.set(scale);
-            const x = this.state.velocity.x * delta.deltaMS;
+            // this.scale.set(scale);
+            const x = this.state.velocity.x * delta.deltaMS * direction;
             this.updatePosition(x, speedMultiplier);
         });
         /* const {duration, moveX, speedMultiplier, ease} = this.config.shot;
