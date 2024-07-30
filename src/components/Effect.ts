@@ -1,7 +1,7 @@
-import { Container } from 'pixi.js';
+import { Container, Ticker } from 'pixi.js';
 import SpritesheetAnimation from './SpritesheetAnimation';
 import { AnimState } from './Player';
-import gsap from 'gsap';
+// import gsap from 'gsap';
 
 
 export default class Effect extends Container {
@@ -29,10 +29,8 @@ export default class Effect extends Container {
 
     config = {
         shot: {
-            moveX: 10,
-            speedMultiplier: 4, // 6
-            duration: 0.3,
-            ease: "sine",
+            scale: 0.8,
+            speedMultiplier: 0.3,
         },
         shotHit: {
             duration: 0.2,
@@ -46,7 +44,7 @@ export default class Effect extends Container {
 
     state = {
         velocity: {
-            x: 0,
+            x: 1,
             y: 0,
         },
     };
@@ -68,12 +66,25 @@ export default class Effect extends Container {
     }
 
     async animateShot(direction: number) {
-        const {duration, moveX, speedMultiplier, ease} = this.config.shot;
+        console.log("== direction ", direction);
+        Ticker.shared.add((delta) => {
+            const {scale, speedMultiplier} = this.config.shot;
+            // this.x -= Number(`${delta.deltaMS * direction}`);
+            this.scale.set(scale);
+            const x = this.state.velocity.x * delta.deltaMS;
+            this.updatePosition(x, speedMultiplier);
+        });
+        /* const {duration, moveX, speedMultiplier, ease} = this.config.shot;
         await gsap.to(this, {
             duration,
             x: `-=${moveX * speedMultiplier * direction}`,
             ease,
-        });
+        });*/
+    }
+
+    updatePosition(x: number, speed: number) {
+        this.x += (x * speed);
+        console.log("=== x ", this.x);
     }
 
     setState(state: AnimState) {

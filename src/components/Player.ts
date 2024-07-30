@@ -324,13 +324,12 @@ export class Player extends Container {
         const {duration, ease} = this.config.shoot;
         this.state.velocity.x = 0;
         this.shooting = true;
-
-        this.appendEffect();
-
+        
         await gsap.to(this, {
             duration,
             ease,
         });
+        this.appendEffect();
         this.shooting = false;
         // console.log("======shoot");
     }
@@ -350,9 +349,9 @@ export class Player extends Container {
 
     appendEffect() {
         Player.effect = new Effect('shot', this.getDirection());
-        Player.effect.x =
-        Player.effect.x = window.innerWidth / 2;
-        Player.effect.y = window.innerHeight - this.height;
+        Player.effect.x = 10;
+        Player.effect.y = -9;
+        this.addChild(Player.effect);
     }
 
 }
