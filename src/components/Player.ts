@@ -116,7 +116,6 @@ export class Player extends Container {
             else if (buttonState === "released") this.onActionRelease(action);
         });
 
-
     }
 
     setState(state: AnimState) {
@@ -329,7 +328,7 @@ export class Player extends Container {
             duration,
             ease,
         });
-        this.appendEffect();
+        this.appendEffect(5);
         this.shooting = false;
         // console.log("======shoot");
     }
@@ -343,15 +342,15 @@ export class Player extends Container {
             duration,
             ease,
         });
+        this.appendEffect(3);
         this.dashShooting = false;
-
     }
 
-    appendEffect() {
+    appendEffect(y: number) {
         const direction = this.getDirection();
         Player.effect = new Effect('shot', direction);
         Player.effect.x = this.x + (15 * direction);
-        Player.effect.y = this.y - 5;
+        Player.effect.y = this.y - y;
         this.parent?.addChild(Player.effect);
     }
 

@@ -1,8 +1,6 @@
 import { Container, Ticker } from 'pixi.js';
 import SpritesheetAnimation from './SpritesheetAnimation';
 import { AnimState } from './Player';
-import { collisionCheck } from '../utils/collision';
-// import gsap from 'gsap';
 
 
 export default class Effect extends Container {
@@ -71,25 +69,18 @@ export default class Effect extends Container {
         const {scale, speedMultiplier} = this.config.shot;
         this.scale.set(scale);
         Ticker.shared.add((delta) => {
-
-            // this.x -= Number(`${delta.deltaMS * direction}`);
-            // this.scale.set(scale);
             const x = this.state.velocity.x * delta.deltaMS * direction;
             this.updatePosition(x, speedMultiplier);
         });
-        /* const {duration, moveX, speedMultiplier, ease} = this.config.shot;
-        await gsap.to(this, {
-            duration,
-            x: `-=${moveX * speedMultiplier * direction}`,
-            ease,
-        });*/
     }
 
     updatePosition(x: number, speed: number) {
+        if (this.destroyed) return;
         this.x += (x * speed);
-
         console.log("=== x ", this.x);
-        // console.log("== collisionCheck ", collisionCheck(this.parent?., this));
+        if ((window.innerWidth / 2) < Math.abs(this.x)) {
+            this.destroy();
+        }
     }
 
     setState(state: AnimState) {
