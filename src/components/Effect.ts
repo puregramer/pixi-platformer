@@ -1,6 +1,7 @@
 import { Container, Ticker } from 'pixi.js';
 import SpritesheetAnimation from './SpritesheetAnimation';
 import { AnimState } from './Player';
+import { collisionCheck } from '../utils/collision';
 // import gsap from 'gsap';
 
 
@@ -86,7 +87,9 @@ export default class Effect extends Container {
 
     updatePosition(x: number, speed: number) {
         this.x += (x * speed);
+
         console.log("=== x ", this.x);
+        // console.log("== collisionCheck ", collisionCheck(this.parent?., this));
     }
 
     setState(state: AnimState) {
