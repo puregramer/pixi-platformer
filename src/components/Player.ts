@@ -61,6 +61,11 @@ export class Player extends Container {
             anim: "run-shoot",
             loop: false,
             speed: 0.35,
+        },
+        jumpShoot: {
+            anim: "jump-shoot",
+            loop: false,
+            speed: 0.2,
         }
     };
 
@@ -86,6 +91,7 @@ export class Player extends Container {
         shoot: {
             duration: 0.2,
             ease: "sine",
+            // ease: "power1.out",
         }
     };
 
@@ -94,6 +100,7 @@ export class Player extends Container {
         dashing: false,
         shooting: false,
         dashShooting: false,
+        jumpShooting: false,
         velocity: {
             x: 0,
             y: 0,
@@ -124,7 +131,7 @@ export class Player extends Container {
     }
 
     private onActionPress(action: keyof typeof Keyboard.actions) {
-        const { dash} = Player.animStates;
+        const { dash, jump} = Player.animStates;
         switch (action) {
             case "LEFT":
                 this.moveX(Directions.LEFT);
@@ -147,6 +154,8 @@ export class Player extends Container {
             case "SHOOT":
                 if (this.currentState === dash) {
                     this.dashShoot();
+                } else if (this.currentState === jump) {
+                    this.jumpShoot();
                 } else {
                     this.shoot();
                 }
@@ -204,14 +213,25 @@ export class Player extends Container {
         this.updateAnimState();
     }
 
+    get jumpShooting() {
+        return this.state.jumpShooting;
+    }
+    private set jumpShooting(value: boolean) {
+        this.state.jumpShooting = value;
+        this.updateAnimState();
+    }
+
     private updateAnimState() {
-        const { walk, jump, dash, idle, shoot, dashShoot  } = Player.animStates;
+        const { walk, jump, dash, idle, shoot, dashShoot, jumpShoot  } = Player.animStates;
         // console.log("== currentState ", this.currentState);
 
         if (this.dashing) {
-            // if (this.currentState === dash) return;
             if (this.jumping) {
-                this.setState(jump);
+                if (this.jumpShooting) {
+                    this.setState(jumpShoot);
+                } else {
+                    this.setState(jump);
+                }
             } else if (this.dashShooting) {
                 if (this.currentState === dashShoot) return;
                 this.setState(dashShoot);
@@ -222,8 +242,12 @@ export class Player extends Container {
             if (this.currentState === dashShoot) return;
             this.setState(dashShoot);
         } else if (this.jumping) {
-            if (this.currentState === jump) return;
-            this.setState(jump);
+            // if (this.currentState === jump) return;
+            if (this.jumpShooting) {
+                this.setState(jumpShoot);
+            } else {
+                this.setState(jump);
+            }
         } else if (this.state.velocity.x !== 0) {
             if (this.currentState === walk) return;
             this.setState(walk);
@@ -323,12 +347,12 @@ export class Player extends Container {
         const {duration, ease} = this.config.shoot;
         this.state.velocity.x = 0;
         this.shooting = true;
-        
+        this.appendEffect(5);
         await gsap.to(this, {
             duration,
             ease,
         });
-        this.appendEffect(5);
+
         this.shooting = false;
         // console.log("======shoot");
     }
@@ -338,12 +362,26 @@ export class Player extends Container {
         // console.log("=========> dashShoot");
         this.dashShooting = true;
         const {duration, ease} = this.config.shoot;
+        this.appendEffect(3);
         await gsap.to(this, {
             duration,
             ease,
         });
-        this.appendEffect(3);
+
         this.dashShooting = false;
+    }
+
+    async jumpShoot() {
+        console.log("=== jumpShoot");
+        const {duration, ease} = this.config.shoot;
+        this.jumpShooting = true;
+        this.appendEffect(5);
+        await gsap.to(this, {
+            duration: duration * 2,
+            ease,
+        });
+
+        this.jumpShooting = false;
     }
 
     appendEffect(y: number) {

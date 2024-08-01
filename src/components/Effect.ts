@@ -65,7 +65,7 @@ export default class Effect extends Container {
     }
 
     async animateShot(direction: number) {
-        console.log("== direction ", direction);
+        // console.log("== direction ", direction);
         const {scale, speedMultiplier} = this.config.shot;
         this.scale.set(scale);
         Ticker.shared.add((delta) => {
@@ -77,14 +77,14 @@ export default class Effect extends Container {
     updatePosition(x: number, speed: number) {
         if (this.destroyed) return;
         this.x += (x * speed);
-        console.log("=== x ", this.x);
+        // console.log("=== x ", this.x);
         if ((window.innerWidth / 2) < Math.abs(this.x)) {
             this.destroy();
         }
     }
 
     setState(state: AnimState) {
-        console.log("==== effect state", state);
+        // console.log("==== effect state", state);
         this.currentState = state;
         return this.anim.play(state);
     }
