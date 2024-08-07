@@ -33,7 +33,7 @@ export class EggTurret extends Container {
     state = {
         shooting: false,
         velocity: {
-            x: 1,
+            x: 0,
             y: 0,
         },
     };

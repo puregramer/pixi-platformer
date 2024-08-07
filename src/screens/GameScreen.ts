@@ -2,14 +2,14 @@ import { Container } from 'pixi.js';
 import ParallaxBackground from '../components/ParallaxBackground';
 import { Config } from '../config';
 import {Player} from "../components/Player";
-import { EggTurret } from '../components/enemy/EggTurret';
+import Enemy from '../components/enemy/Enemy';
 
 export class GameScreen extends Container {
     public static assetBundles = [ 'common', 'game'];
     public readonly gameContainer: Container;
     readonly background: ParallaxBackground;
     private readonly player: Player;
-    eggTurret: EggTurret;
+    enemy: Enemy;
 
     constructor() {
         super();
@@ -26,7 +26,15 @@ export class GameScreen extends Container {
 
         this.background.initPlayerMovement(this.player);
 
-        this.eggTurret = new EggTurret();
+        this.enemy = new Enemy([
+            {
+                name: 'eggTurret',
+                respawnDelay: 500,
+                x: 100,
+                y: 100
+            }
+        ]);
+        this.background.addChild(this.enemy);
 
         this.gameContainer.addChild(this.background, this.player);
 
