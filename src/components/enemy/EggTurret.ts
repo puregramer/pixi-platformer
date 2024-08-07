@@ -40,7 +40,7 @@ export class EggTurret extends Container {
 
     constructor() {
         super();
-        this.anim = new SpritesheetAnimation("enemy/egg-turret");
+        this.anim = new SpritesheetAnimation("enemy-eggTurret");
 
         this.addChild(this.anim);
 
