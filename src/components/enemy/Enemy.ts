@@ -1,5 +1,5 @@
 import { Container } from 'pixi.js';
-
+import { EnemyFactory } from './enemyFactory';
 
 export type EnemyOptions = {
     name: string;
@@ -20,8 +20,12 @@ export default class Enemy extends Container{
     }
 
     append() {
-        this.enemiesOptions.forEach((enemy, idx) => {
-            // this.enemies.set(enemy.name, )
+        this.enemiesOptions.forEach((enemy) => {
+
+            const enemyInstance = new EnemyFactory[enemy.name]();
+            this.enemies.set(enemy.name, enemyInstance);
+
+            this.addChild(enemyInstance);
 
         });
     }
