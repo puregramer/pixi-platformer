@@ -20,7 +20,7 @@ export default class IntroBackground extends Container {
     init() {
         for (const bg of this.config.bg) {
             console.log("= bg", bg);
-            const texture = Texture.from(`background-buildings/${bg}`);
+            const texture = Texture.from(`${bg}`);
             console.log("= texture", texture);
 
             const scaleFactor = Config.width / texture.height;
@@ -43,7 +43,7 @@ export default class IntroBackground extends Container {
 
         for (const layer of this.config.layers) {
             console.log("= layer", layer);
-            const texture = Texture.from(`background-buildings/${layer}`);
+            const texture = Texture.from(`${layer}`);
 
             const sprite = Sprite.from(texture);
 

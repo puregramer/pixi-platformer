@@ -23,7 +23,7 @@ export class LoadScreen extends Container {
             fill.addColorStop(ratio, number);
         });
         const style = new TextStyle({
-            fontFamily: 'PixAntiqua',
+            fontFamily: 'PixAntiqua Regular',
             fontSize: 20,
             fontStyle: 'italic',
             // fontWeight: 'bold',

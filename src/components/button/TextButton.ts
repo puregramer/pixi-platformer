@@ -15,7 +15,7 @@ export default class TextButton extends ButtonContainer {
             fill.addColorStop(ratio, number);
         });
         const style = new TextStyle({
-            fontFamily: 'PixAntiqua',
+            fontFamily: 'PixAntiqua Regular',
             fontSize: 20,
             fontStyle: 'italic',
             // fontWeight: 'bold',
