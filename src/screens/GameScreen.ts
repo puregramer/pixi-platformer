@@ -28,10 +28,10 @@ export class GameScreen extends Container {
 
         this.enemy = new Enemy([
             {
-                name: 'eggTurret',
+                name: 'EggTurret',
                 respawnDelay: 500,
-                x: 100,
-                y: 100
+                x: 600,
+                y: 196
             }
         ]);
         this.background.addChild(this.enemy);

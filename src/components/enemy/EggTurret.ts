@@ -1,6 +1,7 @@
 import { Container } from 'pixi.js';
 import SpritesheetAnimation from '../SpritesheetAnimation';
 import { AnimState } from '../Player';
+import { EnemyOptions } from './Enemy';
 
 export class EggTurret extends Container {
     anim: SpritesheetAnimation;
@@ -10,7 +11,7 @@ export class EggTurret extends Container {
         idle: {
             anim: "Idle",
             loop: true,
-            speed: 0.13,
+            speed: 0.2,
         },
         shoot: {
             anim: "Shoot",
@@ -38,10 +39,14 @@ export class EggTurret extends Container {
         },
     };
 
-    constructor() {
+    constructor({name, respawnDelay, x, y} : EnemyOptions) {
         super();
         this.anim = new SpritesheetAnimation("enemy-eggTurret");
 
+        this.x = x;
+        this.y = y;
+        this.scale.set(this.config.scale);
+        // this.zIndex = 1;
         this.addChild(this.anim);
 
         this.setState(EggTurret.animStates.idle);

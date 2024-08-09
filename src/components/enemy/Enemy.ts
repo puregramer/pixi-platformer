@@ -5,7 +5,7 @@ export type EnemyOptions = {
     name: string;
     respawnDelay: number;
     x: number,
-    y: number,
+    y: number
 }
 
 export default class Enemy extends Container{
@@ -16,13 +16,12 @@ export default class Enemy extends Container{
         super();
         this.enemiesOptions = enemies;
 
-        // this.append();
+        this.append();
     }
 
     append() {
         this.enemiesOptions.forEach((enemy) => {
-
-            const enemyInstance = new EnemyFactory[enemy.name]();
+            const enemyInstance = new EnemyFactory[enemy.name](enemy);
             this.enemies.set(enemy.name, enemyInstance);
 
             this.addChild(enemyInstance);
