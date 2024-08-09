@@ -16,7 +16,7 @@ export default class Enemy extends Container{
         super();
         this.enemiesOptions = enemies;
 
-        this.append();
+        // this.append();
     }
 
     append() {

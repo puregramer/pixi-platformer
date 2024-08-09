@@ -14,7 +14,7 @@ export class TiledBackground extends Container {
         super();
 
         this.sprite = new TilingSprite({
-            texture: Texture.from('background'),
+            texture: Texture.from('background.png'),
             width: app.screen.width,
             height: app.screen.height,
             tileScale: { x: 0.5, y: 0.5 },

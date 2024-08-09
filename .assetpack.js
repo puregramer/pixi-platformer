@@ -1,24 +1,25 @@
 import { pixiPipes } from '@assetpack/core/pixi';
+import { pixiManifest } from '@assetpack/core/manifest';
 
 export default {
     entry: './raw-assets',
     output: './public/assets/',
-    cache: true,
+    cache: false,
     pipes: [
         ...pixiPipes({
             cacheBust: false,
-            // resolutions: { default: 1, low: 0.5 },
-            // compression: { jpg: true, png: true, webp: true },
+            resolutions: { default: 1, low: 0.5 },
+            compression: { jpg: true, png: true, webp: true },
             texturePacker: {
                 texturePacker: {
-                    removeFileExtension: true,
-                    // nameStyle: "short"
+                    removeFileExtension: false,
+                    nameStyle: "relative"
                 },
             },
             manifest: {
-                // createShortcuts: true,
+                // createShortcuts: false,
                 output: './public/assets/assets-manifest.json',
             }
-        }),
+        })
     ],
 };

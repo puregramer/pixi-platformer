@@ -8,7 +8,7 @@ export default class Intro extends Container {
         super();
 
         for (let i = 0; i < Config.backgrounds.buildings.bg.length; i++) {
-            const texture = Texture.from(`${Config.backgrounds.buildings.bg[i]}`);
+            const texture = Texture.from(`background-buildings/${Config.backgrounds.buildings.bg[i]}.png`);
             console.log("= texture", texture);
             const scaleFactor = Config.height / texture.height;
             console.log("= scaleFactor", scaleFactor);
@@ -22,7 +22,7 @@ export default class Intro extends Container {
         }
 
         const tileLayer = new TilingSprite({
-            texture: Texture.from(`${Config.backgrounds.buildings.layers[0].name}`),
+            texture: Texture.from(`background-buildings/${Config.backgrounds.buildings.layers[0].name}.png`),
             width: Config.width,
             height: 124,
         });
@@ -30,7 +30,7 @@ export default class Intro extends Container {
         this.addChild(tileLayer);
 
 
-        const texture = Texture.from(`${Config.backgrounds.buildings.layers[1].name}`);
+        const texture = Texture.from(`background-buildings/${Config.backgrounds.buildings.layers[1].name}.png`);
         const buildings = Sprite.from(texture);
         buildings.scale.set(Config.backgrounds.buildings.layers[1].scale);
         buildings.anchor.set(0.5);
@@ -41,20 +41,6 @@ export default class Intro extends Container {
 
         this.addChild(buildings);
 
-        /*for (const layer of Config.backgrounds.buildings.layers) {
-            console.log("= layer", layer);
-            const texture = Texture.from(`background-buildings/${layer.name}`);
-
-            const sprite = Sprite.from(texture);
-            sprite.scale.set(layer.scale);
-            sprite.anchor.set(0.5);
-            sprite.x = layer.x;
-            sprite.y = layer.y;
-
-            this.layerSprites.push(sprite);
-
-            this.addChild(sprite);
-        }*/
 
     }
 

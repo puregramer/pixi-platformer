@@ -29,7 +29,7 @@ export default class ParallaxBackground extends Container {
 
         for (const bg of this.config.bg) {
             console.log("= bg", bg);
-            const texture = Texture.from(`${bg}`);
+            const texture = Texture.from(`background-walls/${bg}.png`);
             console.log("= texture", texture);
 
             // const scaleFactor = Config.height / texture.height;
@@ -52,7 +52,7 @@ export default class ParallaxBackground extends Container {
             this.addChild(tilingSprite);
         }
 
-        this.tileTexture = Texture.from(`${Config.backgrounds.walls.tile[0]}`);
+        this.tileTexture = Texture.from(`background-walls/${Config.backgrounds.walls.tile[0]}.png`);
         this.tileSprite = new TilingSprite({
             texture: this.tileTexture,
             width: Config.width,
@@ -64,7 +64,7 @@ export default class ParallaxBackground extends Container {
 
         for (const layer of Config.backgrounds.walls.layers) {
             console.log('= layer', layer);
-            const texture = Texture.from(`${layer.name}`);
+            const texture = Texture.from(`background-walls/${layer.name}.png`);
 
             const sprite = Sprite.from(texture);
             sprite.scale.set(layer.scale);
