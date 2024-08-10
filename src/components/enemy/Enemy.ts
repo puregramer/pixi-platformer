@@ -10,7 +10,8 @@ export type EnemyOptions = {
 
 export default class Enemy extends Container{
     enemiesOptions: EnemyOptions[];
-    enemies = new Map<string, any>;
+    // enemies = new Map<string, any>;
+    enemies: any[] = [];
 
     constructor(enemies : EnemyOptions[]) {
         super();
@@ -22,7 +23,7 @@ export default class Enemy extends Container{
     append() {
         this.enemiesOptions.forEach((enemy) => {
             const enemyInstance = new EnemyFactory[enemy.name](enemy);
-            this.enemies.set(enemy.name, enemyInstance);
+            this.enemies.push(enemyInstance);
 
             this.addChild(enemyInstance);
 

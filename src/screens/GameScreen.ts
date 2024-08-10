@@ -32,9 +32,16 @@ export class GameScreen extends Container {
                 respawnDelay: 500,
                 x: 600,
                 y: 196
+            },
+            {
+                name: 'EggTurret',
+                respawnDelay: 500,
+                x: 800,
+                y: 196
             }
         ]);
         this.background.addChild(this.enemy);
+        // console.log("=== enemy ", this.enemy);
 
         this.gameContainer.addChild(this.background, this.player);
 
