@@ -1,5 +1,5 @@
-import {AnimatedSprite, Assets, Container, Texture} from "pixi.js";
-import {sfx} from "../utils/audio";
+import { AnimatedSprite, Assets, Container, Texture } from 'pixi.js';
+import { sfx } from '../utils/audio';
 
 type Play = {
     anim: string;
@@ -9,7 +9,7 @@ type Play = {
 };
 
 export default class SpritesheetAnimation extends Container {
-    animationTextures: Map<string, AnimatedSprite["textures"]>;
+    animationTextures: Map<string, AnimatedSprite['textures']>;
     sprite?: AnimatedSprite;
     speed = 1;
 
@@ -23,10 +23,10 @@ export default class SpritesheetAnimation extends Container {
         this.speed = speed;
         // this.animationTextures = Assets.get(name).animations;
         this.animationTextures = this.getAnimations(name);
-        console.log("== [animationTextures] ", this.animationTextures);
+        console.log('== [animationTextures] ', this.animationTextures);
     }
 
-    private getAnimations(aniName: string): Map<string, AnimatedSprite["textures"]> {
+    private getAnimations(aniName: string): Map<string, AnimatedSprite['textures']> {
         console.log('== getAnimations ', aniName);
 
         const animations = new Map<string, Texture[]>();
@@ -37,19 +37,22 @@ export default class SpritesheetAnimation extends Container {
                 animations.set(name[1], []);
             }
             animations.get(name[1])?.push(texture[1]);
-            animations.set(name[1], animations.get(name[1])!.sort((a: Texture, b: Texture): number => {
-                if (a.label && b.label) {
-                    const numberA = a.label.match(/[0-9]+/g);
-                    const numberB = b.label.match(/[0-9]+/g);
-                    if (Number(numberA![0]) < Number(numberB![0])) {
-                        return -1;
+            animations.set(
+                name[1],
+                animations.get(name[1])!.sort((a: Texture, b: Texture): number => {
+                    if (a.label && b.label) {
+                        const numberA = a.label.match(/[0-9]+/g);
+                        const numberB = b.label.match(/[0-9]+/g);
+                        if (Number(numberA![0]) < Number(numberB![0])) {
+                            return -1;
+                        }
+                        if (Number(numberA![0]) > Number(numberB![0])) {
+                            return 1;
+                        }
                     }
-                    if (Number(numberA![0]) > Number(numberB![0])) {
-                        return 1;
-                    }
-                }
-                return 0;
-            }));
+                    return 0;
+                }),
+            );
         }
         return animations;
     }
@@ -70,7 +73,7 @@ export default class SpritesheetAnimation extends Container {
         return sprite;
     }
 
-    play({anim, soundName, loop = false, speed = this.speed}: Play) {
+    play({ anim, soundName, loop = false, speed = this.speed }: Play) {
         if (this.sprite) {
             this.sprite.stop();
             this.removeChild(this.sprite);

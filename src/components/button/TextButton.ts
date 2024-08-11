@@ -33,11 +33,10 @@ export default class TextButton extends ButtonContainer {
 
         this.buttonText = new Text({
             text: 'START',
-            style
+            style,
         });
         // this.buttonText.x = 0.5;
         // this.buttonText.y = 0.5;
         this.addChild(this.buttonText);
     }
-
 }

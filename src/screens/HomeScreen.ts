@@ -4,7 +4,7 @@ import { navigation } from '../utils/navigation';
 import { GameScreen } from './GameScreen';
 import Intro from '../components/stage/Intro';
 
-export class HomeScreen extends Container{
+export class HomeScreen extends Container {
     /** Assets bundles required by this screen */
     public static assetBundles = ['common'];
     private background: Intro;
@@ -25,8 +25,7 @@ export class HomeScreen extends Container{
 
     /** Resize the screen, fired whenever window size changes  */
     public resize(width: number, height: number) {
-        this.startButton.x = (width / 2) - (this.startButton.width / 2);
+        this.startButton.x = width / 2 - this.startButton.width / 2;
         this.startButton.y = height * 0.7;
     }
-
 }

@@ -13,8 +13,8 @@ export default class ParallaxBackground extends Container {
             panSpeed: 1,
             bg: [],
             layers: [],
-            tile: []
-        }
+            tile: [],
+        },
     ) {
         super();
 
@@ -24,13 +24,12 @@ export default class ParallaxBackground extends Container {
     }
 
     init() {
-
         //todo  background.interactiveChildren = false // visible ?
 
         for (const bg of this.config.bg) {
-            console.log("= bg", bg);
+            console.log('= bg', bg);
             const texture = Texture.from(`background-walls/${bg}.png`);
-            console.log("= texture", texture);
+            console.log('= texture', texture);
 
             // const scaleFactor = Config.height / texture.height;
             const tilingSprite = new TilingSprite({
@@ -78,9 +77,7 @@ export default class ParallaxBackground extends Container {
         }
     }
 
-    initPlayerMovement(object: {
-        state: { velocity: { x: number; y: number } };
-    }) {
+    initPlayerMovement(object: { state: { velocity: { x: number; y: number } } }) {
         Ticker.shared.add((delta) => {
             const x = object.state.velocity.x * delta.deltaMS;
             const y = object.state.velocity.y * delta.deltaMS;
@@ -111,7 +108,7 @@ export default class ParallaxBackground extends Container {
     }*/
 
     resize(width: number, height: number) {
-        console.log("= resize", width, height);
+        console.log('= resize', width, height);
         /*for (const layer of this.sprites) {
             const scaleFactor = height / layer.texture.height;
 

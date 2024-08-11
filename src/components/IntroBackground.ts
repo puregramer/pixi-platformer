@@ -10,8 +10,8 @@ export default class IntroBackground extends Container {
             layers: [],
             bg: [],
             panSpeed: 1,
-            tile: []
-        }
+            tile: [],
+        },
     ) {
         super();
         this.init();
@@ -19,12 +19,12 @@ export default class IntroBackground extends Container {
 
     init() {
         for (const bg of this.config.bg) {
-            console.log("= bg", bg);
+            console.log('= bg', bg);
             const texture = Texture.from(`${bg}`);
-            console.log("= texture", texture);
+            console.log('= texture', texture);
 
             const scaleFactor = Config.width / texture.height;
-            console.log("= scaleFactor", scaleFactor);
+            console.log('= scaleFactor', scaleFactor);
             const tilingSprite = new TilingSprite({
                 texture,
                 width: Config.width,
@@ -42,7 +42,7 @@ export default class IntroBackground extends Container {
         }
 
         for (const layer of this.config.layers) {
-            console.log("= layer", layer);
+            console.log('= layer', layer);
             const texture = Texture.from(`${layer}`);
 
             const sprite = Sprite.from(texture);
@@ -58,5 +58,4 @@ export default class IntroBackground extends Container {
     resize(width: number, height: number) {
         console.log('== [resize] introBg resize ', width, height);
     }
-
 }

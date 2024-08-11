@@ -4,16 +4,16 @@ import { EnemyFactory } from './enemyFactory';
 export type EnemyOptions = {
     name: string;
     respawnDelay: number;
-    x: number,
-    y: number
-}
+    x: number;
+    y: number;
+};
 
-export default class Enemy extends Container{
+export default class Enemy extends Container {
     enemiesOptions: EnemyOptions[];
     // enemies = new Map<string, any>;
     enemies: any[] = [];
 
-    constructor(enemies : EnemyOptions[]) {
+    constructor(enemies: EnemyOptions[]) {
         super();
         this.enemiesOptions = enemies;
 
@@ -26,8 +26,6 @@ export default class Enemy extends Container{
             this.enemies.push(enemyInstance);
 
             this.addChild(enemyInstance);
-
         });
     }
-
 }

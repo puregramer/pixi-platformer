@@ -59,7 +59,6 @@ async function init() {
         backgroundColor: '#000',
     });
 
-
     // Add pixi canvas element (app.canvas) to the document's body
     document.body.appendChild(app.canvas);
 
@@ -87,8 +86,6 @@ async function init() {
         await navigation.showScreen(HomeScreen);
     }
 }
-
-
 
 document.addEventListener('DOMContentLoaded', init);
 // Init everything

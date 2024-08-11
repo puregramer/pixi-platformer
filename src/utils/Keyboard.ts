@@ -1,32 +1,32 @@
-import { EventEmitter } from "pixi.js";
+import { EventEmitter } from 'pixi.js';
 
 export default class Keyboard extends EventEmitter {
     private static instance: Keyboard;
 
     static states = {
-        ACTION: "ACTION",
+        ACTION: 'ACTION',
     };
 
     static actions = {
-        UP: "UP",
-        DOWN: "DOWN",
-        LEFT: "LEFT",
-        RIGHT: "RIGHT",
-        JUMP: "JUMP",
-        SHIFT: "SHIFT",
-        DASH: "DASH",
-        SHOOT: "SHOOT"
+        UP: 'UP',
+        DOWN: 'DOWN',
+        LEFT: 'LEFT',
+        RIGHT: 'RIGHT',
+        JUMP: 'JUMP',
+        SHIFT: 'SHIFT',
+        DASH: 'DASH',
+        SHOOT: 'SHOOT',
     } as const;
 
     static actionKeyMap = {
-        [Keyboard.actions.UP]: "ArrowUp",
-        [Keyboard.actions.DOWN]: "ArrowDown",
-        [Keyboard.actions.LEFT]: "ArrowLeft",
-        [Keyboard.actions.RIGHT]: "ArrowRight",
-        [Keyboard.actions.JUMP]: "KeyW",
-        [Keyboard.actions.DASH]: "KeyR",
-        [Keyboard.actions.SHOOT]: "KeyE",
-        [Keyboard.actions.SHIFT]: "ShiftLeft",
+        [Keyboard.actions.UP]: 'ArrowUp',
+        [Keyboard.actions.DOWN]: 'ArrowDown',
+        [Keyboard.actions.LEFT]: 'ArrowLeft',
+        [Keyboard.actions.RIGHT]: 'ArrowRight',
+        [Keyboard.actions.JUMP]: 'KeyW',
+        [Keyboard.actions.DASH]: 'KeyR',
+        [Keyboard.actions.SHOOT]: 'KeyE',
+        [Keyboard.actions.SHIFT]: 'ShiftLeft',
     } as const;
 
     static allKeys = Object.values(Keyboard.actionKeyMap);
@@ -37,7 +37,7 @@ export default class Keyboard extends EventEmitter {
 
             return acc;
         },
-        {} as Record<string, keyof typeof Keyboard.actionKeyMap>
+        {} as Record<string, keyof typeof Keyboard.actionKeyMap>,
     );
 
     private keyMap = new Map<string, boolean>();
@@ -49,8 +49,8 @@ export default class Keyboard extends EventEmitter {
     }
 
     private listenToKeyEvents() {
-        document.addEventListener("keydown", (e) => this.onKeyPress(e.code));
-        document.addEventListener("keyup", (e) => this.onKeyRelease(e.code));
+        document.addEventListener('keydown', (e) => this.onKeyPress(e.code));
+        document.addEventListener('keyup', (e) => this.onKeyRelease(e.code));
     }
 
     public static getInstance(): Keyboard {
@@ -66,10 +66,7 @@ export default class Keyboard extends EventEmitter {
     }
 
     public onAction(
-        callback: (e: {
-            action: keyof typeof Keyboard.actions;
-            buttonState: "pressed" | "released";
-        }) => void
+        callback: (e: { action: keyof typeof Keyboard.actions; buttonState: 'pressed' | 'released' }) => void,
     ): void {
         this.on(Keyboard.states.ACTION, callback);
     }
@@ -81,7 +78,7 @@ export default class Keyboard extends EventEmitter {
 
         this.emit(Keyboard.states.ACTION, {
             action: Keyboard.keyActionMap[key],
-            buttonState: "pressed",
+            buttonState: 'pressed',
         });
     }
 
@@ -92,7 +89,7 @@ export default class Keyboard extends EventEmitter {
 
         this.emit(Keyboard.states.ACTION, {
             action: Keyboard.keyActionMap[key],
-            buttonState: "released",
+            buttonState: 'released',
         });
     }
 

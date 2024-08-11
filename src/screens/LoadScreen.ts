@@ -9,7 +9,6 @@ export class LoadScreen extends Container {
     /** LThe loading message display */
     private message: Text;
 
-
     constructor() {
         super();
 
@@ -52,7 +51,6 @@ export class LoadScreen extends Container {
         console.log('[loadScreen] resize] ');
         this.message.x = width * 0.5;
         this.message.y = height * 0.75;
-
     }
 
     /**

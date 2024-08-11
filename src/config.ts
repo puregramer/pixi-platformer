@@ -10,8 +10,7 @@ type Layers = {
     scale: number;
     x: number;
     y: number;
-}
-
+};
 
 export const Config = {
     width: 382,
@@ -19,11 +18,7 @@ export const Config = {
 
     backgrounds: {
         buildings: {
-            bg: [
-                'skyline-a',
-                'skyline-b',
-                'skyline-a',
-            ],
+            bg: ['skyline-a', 'skyline-b', 'skyline-a'],
             layers: [
                 {
                     name: 'buildings-bg',
@@ -38,9 +33,7 @@ export const Config = {
                     y: 140,
                 },
             ],
-            tile: [
-                'floor',
-            ],
+            tile: ['floor'],
             panSpeed: 0.2,
         },
         walls: {
@@ -55,17 +48,15 @@ export const Config = {
                     x: 500,
                     y: 0,
                 },
-              /*  {
+                /*  {
                     name: 'bg-wall-with-supports',
                     scale: 1.15,
                     x: 200,
                     y: 0,
                 },*/
             ],
-            tile: [
-                'floor',
-            ],
+            tile: ['floor'],
             panSpeed: 0.01,
-        }
-    }
+        },
+    },
 };

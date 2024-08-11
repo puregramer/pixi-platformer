@@ -9,12 +9,12 @@ export class EggTurret extends Container {
 
     static animStates: Record<string, AnimState> = {
         idle: {
-            anim: "Idle",
+            anim: 'Idle',
             loop: true,
             speed: 0.2,
         },
         shoot: {
-            anim: "Shoot",
+            anim: 'Shoot',
             loop: false,
             speed: 0.2,
         },
@@ -27,8 +27,8 @@ export class EggTurret extends Container {
         scale: 0.7,
         shoot: {
             duration: 0.2,
-            ease: "sine",
-        }
+            ease: 'sine',
+        },
     };
 
     state = {
@@ -39,9 +39,9 @@ export class EggTurret extends Container {
         },
     };
 
-    constructor({name, respawnDelay, x, y} : EnemyOptions) {
+    constructor({ x, y }: EnemyOptions) {
         super();
-        this.anim = new SpritesheetAnimation("enemy-eggTurret");
+        this.anim = new SpritesheetAnimation('enemy-eggTurret');
 
         this.x = x;
         this.y = y;
@@ -50,12 +50,10 @@ export class EggTurret extends Container {
         this.addChild(this.anim);
 
         this.setState(EggTurret.animStates.idle);
-
     }
 
     setState(state: AnimState) {
         this.currentState = state;
         return this.anim.play(state);
     }
-
 }
