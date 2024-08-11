@@ -78,11 +78,16 @@ export default class Effect extends Container {
     updatePosition(x: number, speed: number) {
         if (this.destroyed) return;
         this.x += x * speed;
-        console.log("= ", this.parent?.parent.getChildByName('Enemy'));
+        // console.log("= ", this.parent, this.parent.getChildByName('background'));
 
+        const background = this.parent?.getChildByName('background');
+        const enemy = background?.getChildByName('enemy');
+        console.log("== enemy ", enemy?.children);
+        enemy?.children?.forEach((item) => {
+            console.log('=== collisionCheck', collisionCheck(this, item));
 
-        const target = this.parent?.parent?.enemy.enemies[0];
-        console.log('=== collisionCheck', collisionCheck(this, target));
+        });
+
         if (Config.width / 2 < Math.abs(this.x - Config.width / 2)) {
             this.destroy();
             console.log('==== destroyed effect');

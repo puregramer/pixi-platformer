@@ -17,7 +17,7 @@ export default class ParallaxBackground extends Container {
         },
     ) {
         super();
-
+        this.name = 'background';
         this.init();
 
         // centerObjects(this);

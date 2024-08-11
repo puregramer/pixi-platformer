@@ -15,6 +15,7 @@ export default class Enemy extends Container {
 
     constructor(enemies: EnemyOptions[]) {
         super();
+        this.name = 'enemy';
         this.enemiesOptions = enemies;
 
         this.append();
