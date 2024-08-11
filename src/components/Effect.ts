@@ -1,6 +1,7 @@
 import { Container, Ticker } from 'pixi.js';
 import SpritesheetAnimation from './SpritesheetAnimation';
 import { AnimState } from './Player';
+import { Config } from '../config';
 
 
 export default class Effect extends Container {
@@ -77,8 +78,7 @@ export default class Effect extends Container {
     updatePosition(x: number, speed: number) {
         if (this.destroyed) return;
         this.x += (x * speed);
-        console.log("=== x ", Math.abs(this.x), this.parent?.width / 2);
-        if ((this.parent?.width / 2) < Math.abs(this.x)) {
+        if ((Config.width / 2) < Math.abs(this.x - (Config.width / 2))) {
             this.destroy();
             console.log("==== destroyed effect");
         }
