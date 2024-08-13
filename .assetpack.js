@@ -1,5 +1,4 @@
 import { pixiPipes } from '@assetpack/core/pixi';
-import { pixiManifest } from '@assetpack/core/manifest';
 
 export default {
     entry: './raw-assets',
