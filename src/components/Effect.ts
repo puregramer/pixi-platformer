@@ -20,8 +20,8 @@ export default class Effect extends Container {
             loop: false,
             speed: 0.2,
         },
-        explosion: {
-            anim: 'explosion',
+        explosion1: {
+            anim: 'explosion-1',
             loop: false,
             speed: 0.2,
         },
@@ -36,9 +36,10 @@ export default class Effect extends Container {
             duration: 0.2,
             ease: 'sine',
         },
-        explosion: {
-            duration: 0.2,
-            ease: 'sine',
+        explosion1: {
+            scale: 0.5,
+            // duration: 0.2,
+            // ease: 'sine',
         },
     };
 
@@ -56,11 +57,14 @@ export default class Effect extends Container {
         this.playEffect(effectName, direction);
     }
 
-    playEffect(effectName: string, direction: number) {
+    playEffect(effectName: string, direction?: number) {
         this.setState(Effect.animStates[effectName]);
         switch (effectName) {
             case 'shot':
-                this.animateShot(direction);
+                this.animateShot(direction!);
+                break;
+            case 'explosion1':
+                this.animateExplosion1();
                 break;
         }
     }
@@ -78,13 +82,17 @@ export default class Effect extends Container {
     updatePosition(x: number, speed: number) {
         if (this.destroyed) return;
         this.x += x * speed;
-        // console.log("= ", this.parent, this.parent.getChildByName('background'));
 
         const background = this.parent?.getChildByName('background');
         const enemy = background?.getChildByName('enemy');
-        console.log("== enemy ", enemy?.children);
+
         enemy?.children?.forEach((item) => {
-            console.log('=== collisionCheck', collisionCheck(this, item));
+            // console.log('=== collisionCheck', collisionCheck(this, item));
+            if (collisionCheck(this, item)) {
+                this.playEffect('explosion1');
+                this.destroy();
+            }
+
 
         });
 
@@ -92,6 +100,11 @@ export default class Effect extends Container {
             this.destroy();
             console.log('==== destroyed effect');
         }
+    }
+
+    async animateExplosion1() {
+        const { scale } = this.config.explosion1;
+        this.scale.set(scale);
     }
 
     setState(state: AnimState) {
