@@ -57,15 +57,14 @@ export default class Effect extends Container {
         this.playEffect(effectName, direction);
     }
 
-    playEffect(effectName: string, direction?: number) {
+    async playEffect(effectName: string, direction?: number) {
         this.setState(Effect.animStates[effectName]);
         switch (effectName) {
             case 'shot':
-                this.animateShot(direction!);
-                break;
+                return await this.animateShot(direction!);
+
             case 'explosion1':
-                this.animateExplosion1();
-                break;
+                return await this.animateExplosion1();
         }
     }
 
@@ -79,26 +78,28 @@ export default class Effect extends Container {
         });
     }
 
-    updatePosition(x: number, speed: number) {
+    async updatePosition(x: number, speed: number) {
         if (this.destroyed) return;
         this.x += x * speed;
 
         const background = this.parent?.getChildByName('background');
         const enemy = background?.getChildByName('enemy');
 
-        enemy?.children?.forEach((item) => {
-            // console.log('=== collisionCheck', collisionCheck(this, item));
-            if (collisionCheck(this, item)) {
-                this.playEffect('explosion1');
+        for (let i = 0; i < enemy!.children.length; i++) {
+            if (this.destroyed) continue;
+            console.log(`=== collisionCheck ${i}`, collisionCheck(this, enemy!.children[i]));
+            if (collisionCheck(this, enemy!.children[i])) {
+                console.log('==== destroyed effect');
+                await this.playEffect('explosion1');
                 this.destroy();
             }
 
+        }
 
-        });
-
+        if (this.destroyed) return;
         if (Config.width / 2 < Math.abs(this.x - Config.width / 2)) {
             this.destroy();
-            console.log('==== destroyed effect');
+            console.log('==== destroyed effect !!');
         }
     }
 
