@@ -1,9 +1,17 @@
-import { Container } from 'pixi.js';
 import SpritesheetAnimation from '../SpritesheetAnimation';
 import { AnimState } from '../Player';
-import { EnemyOptions } from './Enemy';
+import {EnemyOptions } from './Enemy';
+import { waitFor } from '../../utils/asyncUtils';
+import { Container } from 'pixi.js';
 
-export class EggTurret extends Container {
+export abstract class BaseEnemy extends Container {
+    protected constructor() {
+        super();
+    }
+    public setHurt() {}
+}
+
+export class EggTurret extends BaseEnemy {
     anim: SpritesheetAnimation;
     currentState: AnimState | null = null;
 
@@ -50,10 +58,17 @@ export class EggTurret extends Container {
         this.addChild(this.anim);
 
         this.setState(EggTurret.animStates.idle);
+
     }
 
     setState(state: AnimState) {
         this.currentState = state;
         return this.anim.play(state);
+    }
+
+    async setHurt() {
+        this.tint = 0xff0000;
+        await waitFor(0.1);
+        this.tint = 0xffffff;
     }
 }
